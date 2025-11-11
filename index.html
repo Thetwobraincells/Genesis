@@ -136,7 +136,6 @@
             position: relative;
             /* Ensure content is above scribbles */
             z-index: 1; 
-            /* --- UPDATED --- */
             overflow: visible; /* Allow scribbles/card to go outside */
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
         }
@@ -210,7 +209,6 @@
             padding: 15px 0;
             z-index: 1000;
             text-align: center;
-            /* --- NEW --- */
             transition: top 0.3s ease-in-out; /* For the slide-up/down effect */
         }
 
@@ -253,15 +251,25 @@
             overflow: hidden;
         }
 
+        /* --- NEW: Presenter Text --- */
+        .presenter-text {
+            font-family: var(--font-body);
+            font-size: 1.5rem;
+            color: var(--pencil-light);
+            margin: 0;
+            padding: 0;
+            transform: rotate(-1deg);
+            z-index: 2;
+        }
+
         #hero h1 {
             font-size: 7rem;
             line-height: 1;
-            margin: 0;
+            margin: 5px 0 0 0; /* Adjusted margin */
             transform: rotate(-2deg);
             z-index: 2;
         }
         
-        /* This is the original gradient style */
         #hero .gradient-text {
             background: linear-gradient(45deg, var(--marker-pink), var(--marker-orange));
             -webkit-background-clip: text;
@@ -500,7 +508,6 @@
             align-items: center;
             padding: 40px 0; 
             position: relative;
-            /* --- UPDATED --- */
             overflow: visible; /* Fixes card clipping */
         }
         
@@ -515,7 +522,6 @@
             /* For scribbles */
             position: relative;
             z-index: 2;
-            /* --- UPDATED: BUG FIX --- */
             /* overflow: hidden; */ /* This was clipping the rotated title */
             transition: transform 0.2s ease;
         }
@@ -526,7 +532,6 @@
 
         .card .title {
             width: 100%;
-            /* --- UPDATED --- */
             height: 70px; /* Was 50px */
             position: relative;
             display: flex;
@@ -541,7 +546,6 @@
             color: var(--pencil-color);
             box-sizing: border-box;
             z-index: 2;
-            /* --- NEW --- */
             /* Ensure top is rounded since overflow is gone */
             border-top-left-radius: 255px 15px;
             border-top-right-radius: 15px 225px;
@@ -613,7 +617,6 @@
             border-top: 2px dashed #ccc;
             position: relative;
             z-index: 2;
-            /* --- NEW --- */
             /* Ensure bottom is rounded since overflow is gone */
             border-bottom-left-radius: 15px 255px;
             border-bottom-right-radius: 225px 15px;
@@ -786,6 +789,10 @@
             }
             
             /* --- UPDATED: Mobile Nav Bar Fix --- */
+            nav .container {
+                justify-content: flex-start; /* Aligns links to the left */
+                padding-left: 10px; /* Adds a bit of space from the edge */
+            }
             nav a {
                 font-size: 1.1rem; /* Smaller font */
                 margin: 2px 8px;   /* Tighter spacing */
@@ -832,6 +839,8 @@
         <div class="scribble scribble-lines-1" style="bottom: -10%; right: -15%; transform: scale(1.2) rotate(25deg); opacity: 0.05;"></div>
         
         <div class="container">
+            <!-- --- NEW --- -->
+            <p class="presenter-text">VESIT Presents</p>
             <h1><span class="gradient-text">GENESIS</span></h1>
             <p class="subtitle">A 30-Hour Hackathon by Quest-IT</p>
             
