@@ -781,19 +781,20 @@
                 margin: 2px 8px;   /* Tighter spacing */
                 padding: 3px 6px;  /* Smaller padding */
             }
-        }
-
-        @media (max-width: 650px) { 
+            
+            /* --- NEW: Card clipping fix --- */
             .card {
                 width: 100%;
                 box-sizing: border-box;
-                transform: rotate(0deg);
+                transform: rotate(0deg); /* Stop rotation on mobile */
             }
+            
             .card .checkout .footer {
                 flex-direction: column;
                 gap: 20px;
             }
         }
+
     </style>
 </head>
 
@@ -955,7 +956,7 @@
                     <img src="https://source.boringavatars.com/beam/120/networkmarvels?colors=e63946,fe5f55,ffc857,fefcf7" alt="network marvels">
                 </div>
                 <div class="sponsor-logo">
-                    <img src="https://source.boringavatars.com/beam/120/scrimba?colors=e63946,fe5f55,ffc857,fefcf7" alt="scrimba">
+                    <img src="httpsimg.com/beam/120/scrimba?colors=e63946,fe5f55,ffc857,fefcf7" alt="scrimba">
                 </div>
             </div>
         </section>
@@ -969,7 +970,8 @@
             <div class="scribble scribble-star-1" style="opacity: 0.6; left: -5%; top: 5%;"></div>
             <div class="scribble scribble-lines-1" style="bottom: -10%; right: -10%; transform: scale(1) rotate(-5deg); opacity: 0.1;"></div>
             
-            <h2>Frequently Asked Doodles</h2>
+            <!-- --- UPDATED --- -->
+            <h2>Frequently Asked Questions</h2>
             
             <details>
                 <summary>Who can participate?</summary>
