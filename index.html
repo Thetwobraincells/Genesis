@@ -136,7 +136,8 @@
             position: relative;
             /* Ensure content is above scribbles */
             z-index: 1; 
-            overflow: hidden; /* Keep scribbles contained */
+            /* --- UPDATED --- */
+            overflow: visible; /* Allow scribbles/card to go outside */
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
         }
         
@@ -209,6 +210,8 @@
             padding: 15px 0;
             z-index: 1000;
             text-align: center;
+            /* --- NEW --- */
+            transition: top 0.3s ease-in-out; /* For the slide-up/down effect */
         }
 
         nav .container {
@@ -497,12 +500,10 @@
             align-items: center;
             padding: 40px 0; 
             position: relative;
-            overflow: hidden; /* Reverted */
+            /* --- UPDATED --- */
+            overflow: visible; /* Fixes card clipping */
         }
         
-        /* Reverted hover scribble styles */
-
-
         .card {
             width: 400px;
             /* Sketchbook theme applied */
@@ -514,14 +515,18 @@
             /* For scribbles */
             position: relative;
             z-index: 2;
-            overflow: hidden; /* Contain scribbles */
+            overflow: hidden; /* Contain internal scribbles */
+            transition: transform 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: rotate(0deg); /* Straighten on hover */
         }
 
         .card .title {
             width: 100%;
             height: 50px;
             position: relative;
-            /* --- UPDATED --- */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -536,7 +541,6 @@
             z-index: 2;
         }
         
-        /* --- NEW: Pass Counter Style --- */
         #pass-counter {
             font-family: var(--font-body);
             font-size: 1.2rem;
@@ -1008,7 +1012,7 @@
             
             <!-- NEW: Registration Card Structure -->
             <div id="registration-form-container">
-                
+                                
                 <!-- Registration Card -->
                 <form class="card" id="registration-form">
                     <!-- Drastic scribbles added -->
@@ -1104,14 +1108,14 @@
         const modal = document.getElementById('message-modal');
         const closeModalBtn = document.getElementById('close-modal');
         
-        // --- NEW: Counter Logic ---
+        // --- Counter Logic ---
         let registrationCount = 1;
         const passCounterEl = document.getElementById('pass-counter');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // Stop the form from actually submitting
             
-            // --- NEW: Increment Counter ---
+            // --- Increment Counter ---
             registrationCount++;
             passCounterEl.innerText = `#${String(registrationCount).padStart(3, '0')}`;
             
@@ -1211,6 +1215,27 @@
                 }, (randomFall + randomDelay) * 1000);
             }
         }
+        
+        // --- NEW: Mobile Nav Scroll ---
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+
+        window.addEventListener("scroll", () => {
+            // Check if we're on mobile (matches the CSS breakpoint)
+            if (window.innerWidth <= 768) {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > 100) { 
+                    // Scrolling Down
+                    navbar.style.top = "-150px"; // Hide navbar (increased value to ensure it hides)
+                } else {
+                    // Scrolling Up
+                    navbar.style.top = "0";
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            } else {
+                navbar.style.top = "0"; // Ensure it's always visible on desktop
+            }
+        }, false);
 
     </script>
 
