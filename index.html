@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENESIS Hackathon - Participant Registration</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Patrick+Hand&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         /* --- SKETCHBOOK THEME VARIABLES --- */
@@ -116,10 +114,16 @@
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
             position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 12px 25px rgba(0,0,0,0.15);
         }
         
         .section::before {
-            content: '\f0c6'; /* Font Awesome paperclip icon */
+            content: '\f0c6';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -128,30 +132,41 @@
             font-size: 2.5rem;
             color: var(--pencil-light);
             transform: rotate(-25deg);
-            z-index: 10; /* Make sure clip is above scribbles */
+            z-index: 10;
+            animation: clipBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes clipBounce {
+            0%, 100% { transform: rotate(-25deg) translateY(0); }
+            50% { transform: rotate(-25deg) translateY(-5px); }
         }
 
         /* --- SCRIBBLE CONTAINER --- */
         .scribble-container {
             position: relative;
-            /* Ensure content is above scribbles */
-            z-index: 1; 
-            overflow: visible; /* Allow scribbles/card to go outside */
+            z-index: 1;
+            overflow: visible;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
         }
         
         .scribble-container > * {
             position: relative;
-            z-index: 2; /* All direct children (content) */
+            z-index: 2;
         }
         
         .scribble {
             position: absolute;
-            z-index: 1; /* Scribbles behind content */
+            z-index: 1;
             opacity: 0.5;
             width: 150px;
             height: 100px;
-            pointer-events: none; /* Make them unclickable */
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
 
         .scribble.scribble-circle-1 {
@@ -163,6 +178,7 @@
             background-repeat: no-repeat;
             transform: rotate(15deg) scale(1.2);
             opacity: 0.3;
+            animation-delay: 1s;
         }
 
         .scribble.scribble-arrow-1 {
@@ -174,6 +190,7 @@
             background-repeat: no-repeat;
             transform: rotate(-20deg) scale(1.1);
             opacity: 0.6;
+            animation-delay: 2s;
         }
         
         .scribble.scribble-star-1 {
@@ -184,32 +201,32 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 10 L 60 40 L 90 50 L 60 60 L 50 90 L 40 60 L 10 50 L 40 40 Z' stroke='%23333' stroke-width='1' fill='none' stroke-dasharray='5,5' /%3E%3Cpath d='M 50 15 L 58 42 L 85 50 L 58 58 L 50 85 L 42 58 L 15 50 L 42 42 Z' stroke='%23333' stroke-width='1' fill='none' transform='rotate(5 50 50)' /%3E%3C/svg%3E");
             background-repeat: no-repeat;
             opacity: 0.4;
-        }
-        
-        .scribble.scribble-lines-1 {
-            top: -20px;
-            left: -30px;
-            width: 250px;
-            height: 200px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 200'%3E%3Cpath d='M10 10 Q 100 50, 240 20' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 20 Q 110 60, 235 30' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 30 Q 90 70, 245 40' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 40 Q 120 80, 240 50' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 50 Q 100 90, 230 60' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 60 Q 110 100, 240 70' stroke='%23333' stroke-width='1' fill='none' /%3E%React%20%3Cpath d='M5 70 Q 90 110, 235 80' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 80 Q 120 120, 245 90' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 90 Q 100 130, 240 100' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 100 Q 110 140, 230 110' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 110 Q 90 150, 245 120' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 120 Q 120 160, 240 130' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 130 Q 100 170, 230 140' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 140 Q 110 180, 245 150' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 150 Q 90 190, 235 160' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 160 Q 120 200, 240 170' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 170 Q 100 210, 230 180' stroke='%23333' stroke-width='1' fill='none' /%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            transform: rotate(-10deg) scale(1.3);
-            opacity: 0.15;
+            animation: spin 20s linear infinite;
         }
 
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
         /* --- STICKY NOTEBOOK NAVIGATION --- */
         nav {
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: rgba(253, 250, 245, 0.85);
-            backdrop-filter: blur(8px);
+            background-color: rgba(253, 250, 245, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 2px dashed #ccc;
             padding: 15px 0;
             z-index: 1000;
             text-align: center;
-            transition: top 0.3s ease-in-out; /* For the slide-up/down effect */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         nav .container {
@@ -227,12 +244,29 @@
             margin: 5px 15px;
             padding: 5px 10px;
             border-radius: 4px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             transform: rotate(-1deg);
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--highlighter-yellow);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
         }
         
         nav a:hover {
-            background: var(--highlighter-yellow);
+            background: transparent;
             color: var(--pencil-color);
             transform: rotate(1deg) scale(1.1);
             text-decoration: none;
@@ -247,11 +281,10 @@
             text-align: center;
             padding: 40px 20px;
             flex-direction: column;
-            position: relative; /* For scribbles */
+            position: relative;
             overflow: hidden;
         }
 
-        /* --- NEW: Presenter Text --- */
         .presenter-text {
             font-family: var(--font-body);
             font-size: 1.5rem;
@@ -260,14 +293,38 @@
             padding: 0;
             transform: rotate(-1deg);
             z-index: 2;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) rotate(-1deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(-1deg);
+            }
         }
 
         #hero h1 {
             font-size: 7rem;
             line-height: 1;
-            margin: 5px 0 0 0; /* Adjusted margin */
+            margin: 5px 0 0 0;
             transform: rotate(-2deg);
             z-index: 2;
+            animation: fadeInScale 1.2s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotate(-2deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(-2deg);
+            }
         }
         
         #hero .gradient-text {
@@ -275,7 +332,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         #hero .subtitle {
@@ -284,6 +347,18 @@
             color: var(--pencil-light);
             margin-top: 10px;
             z-index: 2;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* --- Countdown Timer Styles --- */
@@ -293,6 +368,7 @@
             gap: 20px;
             margin-top: 30px;
             z-index: 2;
+            animation: fadeInUp 1s ease-out 0.9s both;
         }
         .timer-box {
             background: var(--paper-color);
@@ -301,6 +377,11 @@
             padding: 10px 20px;
             box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
             transform: rotate(-1deg);
+            transition: all 0.3s ease;
+        }
+        .timer-box:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
         }
         .timer-box span {
             display: block;
@@ -308,14 +389,20 @@
             font-size: 3rem;
             color: var(--marker-pink);
             line-height: 1.1;
+            animation: pulse 2s ease-in-out infinite;
         }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         .timer-box p {
             font-size: 1rem;
             color: var(--pencil-light);
             margin: 0;
             padding: 0;
         }
-
 
         /* --- SKETCHY BUTTON --- */
         .btn {
@@ -329,10 +416,28 @@
             text-decoration: none;
             display: inline-block;
             box-shadow: 4px 4px 0px var(--pencil-light);
-            transition: all 0.1s ease-out;
+            transition: all 0.2s ease-out;
             margin-top: 30px;
             transform: rotate(-1.5deg);
             z-index: 2;
+            animation: fadeInUp 1s ease-out 1.2s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
@@ -346,7 +451,7 @@
         hr.sketchy {
             border: 0;
             height: 3px;
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M.5 5.5c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3" fill="none" stroke="%23cccccc" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M.5 5.5c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3" fill="none" stroke="%23cccccc" stroke-width="1.5"/></svg>');
             background-repeat: repeat-x;
             opacity: 0.8;
             margin: 60px 0;
@@ -361,6 +466,11 @@
         #about .about-box {
             flex: 1;
             min-width: 300px;
+            transition: transform 0.3s ease;
+        }
+        
+        #about .about-box:hover {
+            transform: scale(1.02);
         }
         
         /* --- Event Details Section --- */
@@ -376,26 +486,44 @@
             border-radius: 8px;
             text-align: center;
             transform: rotate(-2deg);
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        /* --- Sticky Note Wiggle Animation --- */
+        
         .detail-card:hover {
-            transform: rotate(0deg) scale(1.05);
-            animation: card-hover-wiggle 0.3s ease-in-out;
+            transform: rotate(0deg) scale(1.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            animation: wiggle 0.5s ease-in-out;
         }
-        @keyframes card-hover-wiggle {
-            0%   { transform: rotate(0deg) scale(1.05); }
-            25%  { transform: rotate(-1deg) scale(1.05); }
-            50%  { transform: rotate(1deg) scale(1.05); }
-            75%  { transform: rotate(-1deg) scale(1.05); }
-            100% { transform: rotate(0deg) scale(1.05); }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1.08); }
+            25% { transform: rotate(-2deg) scale(1.08); }
+            50% { transform: rotate(2deg) scale(1.08); }
+            75% { transform: rotate(-1deg) scale(1.08); }
         }
 
         .detail-card i {
             font-size: 2.5rem;
             color: var(--highlighter-blue);
             margin-bottom: 10px;
+            animation: iconBounce 2s ease-in-out infinite;
         }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .detail-card:hover i {
+            animation: iconSpin 0.6s ease-in-out;
+        }
+
+        @keyframes iconSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .detail-card h4 {
             font-size: 1.5rem;
             margin: 0 0 5px 0;
@@ -415,10 +543,18 @@
             margin-bottom: 15px;
             padding-left: 40px;
             position: relative;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        #why-participate li.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
         
         #why-participate li::before {
-            content: '\f00c'; /* Font Awesome check mark */
+            content: '\f00c';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -432,6 +568,17 @@
             text-align: center;
             line-height: 20px;
             border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        #why-participate li:hover {
+            transform: translateX(10px);
+        }
+
+        #why-participate li:hover::before {
+            background: var(--marker-orange);
+            color: white;
+            transform: rotate(360deg);
         }
         
         /* --- FAQ Section (Accordion) --- */
@@ -442,8 +589,15 @@
             margin-bottom: 10px;
             padding: 10px;
             position: relative;
-            z-index: 2; /* Above scribbles */
+            z-index: 2;
+            transition: all 0.3s ease;
         }
+
+        #faq details:hover {
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
         #faq summary {
             font-family: var(--font-heading);
             font-size: 1.5rem;
@@ -451,6 +605,7 @@
             cursor: crosshair;
             padding: 5px;
             position: relative;
+            transition: color 0.3s ease;
         }
         #faq summary::marker {
             color: var(--marker-orange);
@@ -463,8 +618,8 @@
             padding: 10px 15px 0 30px;
             border-top: 2px dashed #eee;
             margin-top: 10px;
+            animation: fadeInDown 0.3s ease-out;
         }
-
 
         /* --- SPONSOR WALL (Doodles) --- */
         .sponsor-wall {
@@ -477,7 +632,13 @@
         
         .sponsor-logo {
             text-align: center;
+            animation: fadeInScale 0.6s ease-out both;
         }
+
+        .sponsor-logo:nth-child(1) { animation-delay: 0.1s; }
+        .sponsor-logo:nth-child(2) { animation-delay: 0.2s; }
+        .sponsor-logo:nth-child(3) { animation-delay: 0.3s; }
+        .sponsor-logo:nth-child(4) { animation-delay: 0.4s; }
         
         .sponsor-logo img {
             height: 80px;
@@ -485,13 +646,14 @@
             max-width: 80px;
             border-radius: 50%;
             filter: grayscale(100%) contrast(1.2) opacity(0.7);
-            transition: all 0.2s ease;
+            transition: all 0.4s ease;
         }
         
         .sponsor-logo img:hover {
             filter: grayscale(0%) contrast(1) opacity(1);
-            transform: scale(1.1);
+            transform: scale(1.2) rotate(5deg);
             cursor: crosshair;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         
         .sponsor-logo span {
@@ -501,52 +663,48 @@
             margin-top: 5px;
         }
 
-        /* --- NEW: Registration Card Styles --- */
+        /* --- Registration Card Styles --- */
         #registration-form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 0; 
+            padding: 40px 0;
             position: relative;
-            overflow: visible; /* Fixes card clipping */
+            overflow: visible;
         }
         
         .card {
             width: 400px;
-            /* Sketchbook theme applied */
             background: var(--paper-color);
             border: 2px solid #ddd;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
             transform: rotate(-1deg);
-            /* For scribbles */
             position: relative;
             z-index: 2;
-            /* overflow: hidden; */ /* This was clipping the rotated title */
-            transition: transform 0.2s ease;
+            transition: all 0.4s ease;
         }
         
         .card:hover {
-            transform: rotate(0deg); /* Straighten on hover */
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.15);
         }
 
         .card .title {
             width: 100%;
-            height: 70px; /* Was 50px */
+            height: 70px;
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             border-bottom: 2px dashed #ccc;
-            /* Sketchbook theme applied */
             font-family: var(--font-heading);
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--pencil-color);
             box-sizing: border-box;
             z-index: 2;
-            /* Ensure top is rounded since overflow is gone */
             border-top-left-radius: 255px 15px;
             border-top-right-radius: 15px 225px;
         }
@@ -560,6 +718,12 @@
             border-radius: 4px;
             border: 1px dashed var(--marker-pink);
             font-weight: 600;
+            animation: counterPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .card .steps {
@@ -576,7 +740,6 @@
         }
 
         .card .steps .step span {
-            /* Sketchbook theme applied */
             font-family: var(--font-heading);
             font-size: 1.3rem;
             font-weight: 600;
@@ -597,13 +760,12 @@
             height: 40px;
             padding: 0 0 0 12px;
             box-sizing: border-box;
-            /* Sketchbook theme applied */
             font-family: var(--font-body);
             font-size: 1.1rem;
             border: 2px solid var(--pencil-color);
             background: #fafafa;
             border-radius: 4px 6px 4px 8px;
-            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+            transition: all 0.3s ease;
             position: relative;
             z-index: 2;
         }
@@ -611,13 +773,13 @@
         .input_field:focus {
             outline: 3px dashed var(--highlighter-yellow);
             background: #fff;
+            transform: scale(1.02);
         }
 
         .card .checkout {
             border-top: 2px dashed #ccc;
             position: relative;
             z-index: 2;
-            /* Ensure bottom is rounded since overflow is gone */
             border-bottom-left-radius: 15px 255px;
             border-bottom-right-radius: 225px 15px;
         }
@@ -637,7 +799,6 @@
             font-weight: 900;
         }
         
-        /* Re-using the .btn style for the checkout button */
         .checkout-btn {
             font-family: var(--font-heading);
             font-size: 1.5rem;
@@ -649,10 +810,29 @@
             text-decoration: none;
             display: inline-block;
             box-shadow: 4px 4px 0px var(--pencil-light);
-            transition: all 0.1s ease-out;
+            transition: all 0.2s ease-out;
             transform: rotate(-1.5deg);
-            margin: 0; /* Override any defaults */
+            margin: 0;
             z-index: 2;
+            cursor: pointer;
+            border-style: solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .checkout-btn:hover::before {
+            left: 100%;
         }
         
         .checkout-btn:hover {
@@ -661,6 +841,11 @@
             cursor: crosshair;
             text-decoration: none;
         }
+
+        .checkout-btn:active {
+            transform: rotate(0deg) scale(0.98);
+            box-shadow: 2px 2px 0px var(--pencil-light);
+        }
         
         /* --- FOOTER --- */
         footer {
@@ -668,30 +853,261 @@
             padding: 40px 20px;
             margin-top: 40px;
             border-top: 2px dashed #ccc;
+            animation: fadeInUp 1s ease-out;
         }
         
-        .social-links a {
-            font-size: 2rem;
-            margin: 0 10px;
+        .footer-contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            text-align: center; /* Ensures the grid container is centered */
+        }
+        
+        .footer-contacts .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            justify-content: flex-start; /* Align items to the start of their grid cell */
+            padding-left: 50px; /* Shift contact items to the right */
+        }
+
+        .footer-contacts .contact-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .footer-contacts .contact-item i {
+            color: var(--marker-orange);
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-contacts .contact-item:hover i {
+            transform: rotate(360deg);
+        }
+        
+        .footer-email {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer-email i {
+            color: var(--marker-orange);
+            margin-right: 8px;
+        }
+
+        .footer-copyright {
+            font-size: 1rem;
             color: var(--pencil-light);
-            transition: all 0.2s;
+            margin-top: 20px;
+        }
+
+        .footer-made-by {
+            font-size: 1.1rem;
+            color: var(--pencil-light);
+            margin-top: 10px;
         }
         
-        .social-links a:hover {
+        .footer-made-by .fa-heart {
             color: var(--marker-pink);
-            transform: scale(1.2) rotate(5deg);
+            animation: pulse 1.5s ease-in-out infinite;
+            display: inline-block; /* for animation */
+        }
+        
+        /* --- Custom Modal for Form --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-out;
         }
 
-        /* --- ANIMATIONS & RESPONSIVENESS --- */
-        @keyframes scribble {
-            from { width: 0; }
-            to { width: 110%; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
+        .modal-box {
+            background: var(--paper-color);
+            padding: 40px;
+            border-radius: 8px;
+            border: 3px solid var(--pencil-color);
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: modalSlideIn 0.4s ease-out;
+            transform: rotate(-2deg);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px) rotate(-2deg) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) rotate(-2deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-box h3 {
+            margin-top: 0;
+            color: var(--marker-pink);
+            font-size: 2.5rem;
+            animation: bounce 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-20px); }
+            50% { transform: translateY(-10px); }
+            75% { transform: translateY(-5px); }
+        }
+
+        .modal-box .btn {
+            margin-top: 20px;
+        }
+        
+        /* --- Confetti Animation --- */
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--highlighter-yellow);
+            top: 50%;
+            left: 50%;
+            opacity: 1;
+            z-index: 2001;
+        }
+        .confetti-piece.pink { background: var(--marker-pink); }
+        .confetti-piece.blue { background: var(--highlighter-blue); }
+        .confetti-piece.orange { background: var(--marker-orange); }
+        .confetti-piece.round { border-radius: 50%; }
+        .confetti-piece.line { width: 4px; height: 15px; }
+
+        /* --- Loading Spinner --- */
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--marker-pink);
+            border-radius: 50%;
+            animation: spin-loading 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin-loading {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        /* --- Success Checkmark --- */
+        .success-checkmark {
+            display: none;
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+        }
+
+        .success-checkmark.active {
+            display: block;
+        }
+
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid var(--marker-orange);
+            animation: checkmarkScale 0.3s ease-in-out;
+        }
+
+        @keyframes checkmarkScale {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: checkmarkRotate 4.25s ease-in;
+        }
+
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: var(--marker-orange);
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: checkmarkTip 0.75s 0.3s ease-in-out;
+        }
+
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: checkmarkLong 0.75s 0.5s ease-in-out;
+        }
+
+        @keyframes checkmarkTip {
+            0% { width: 0; left: 1px; top: 19px; }
+            54% { width: 0; left: 1px; top: 19px; }
+            70% { width: 50px; left: -8px; top: 37px; }
+            84% { width: 17px; left: 21px; top: 48px; }
+            100% { width: 25px; left: 14px; top: 46px; }
+        }
+
+        @keyframes checkmarkLong {
+            0% { width: 0; right: 46px; top: 54px; }
+            65% { width: 0; right: 46px; top: 54px; }
+            84% { width: 55px; right: 0; top: 35px; }
+            100% { width: 47px; right: 8px; top: 38px; }
+        }
+
+        /* --- Scroll Reveal Animation --- */
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         
         .scroll-reveal.visible {
@@ -700,69 +1116,38 @@
         }
 
         .scroll-reveal.visible h2::after {
-            animation: scribble 0.8s ease-out forwards;
+            animation: scribble 1s ease-out forwards;
             animation-delay: 0.3s;
         }
-        
-        /* --- Custom Modal for Form --- */
-        .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          display: none; /* Hidden by default */
-          align-items: center;
-          justify-content: center;
-          z-index: 2000;
-          backdrop-filter: blur(5px);
+
+        @keyframes scribble {
+            from { width: 0; }
+            to { width: 110%; }
         }
-        .modal-box {
-          background: var(--paper-color);
-          padding: 30px;
-          border-radius: 8px;
-          border: 2px solid var(--pencil-color);
-          box-shadow: 5px 8px 15px rgba(0,0,0,0.2);
-          text-align: center;
-          max-width: 400px;
-          width: 90%;
-        }
-        .modal-box h3 {
-          margin-top: 0;
-          color: var(--marker-pink);
-        }
-        .modal-box .btn {
-          margin-top: 20px;
-        }
-        
-        /* --- Confetti Animation --- */
-        .confetti-piece {
+
+        /* --- Parallax Background Elements --- */
+        .bg-decoration {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--highlighter-yellow);
-            top: 0;
-            opacity: 1;
-            animation: confetti-fall 3s ease-out forwards;
-        }
-        .confetti-piece.pink { background: var(--marker-pink); }
-        .confetti-piece.blue { background: var(--highlighter-blue); }
-        .confetti-piece.orange { background: var(--marker-orange); }
-        .confetti-piece.round { border-radius: 50%; }
-        .confetti-piece.line { width: 4px; height: 15px; }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(400px) rotate(720deg);
-                opacity: 0;
-            }
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 0;
         }
 
+        .bg-pencil {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bg-notebook {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            right: 10%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
 
         /* --- Responsive Styles --- */
         @media (max-width: 768px) {
@@ -777,9 +1162,10 @@
             }
             #countdown {
                 gap: 10px;
+                flex-wrap: wrap;
             }
             .timer-box {
-                padding: 10px;
+                padding: 8px 15px;
             }
             .timer-box span {
                 font-size: 2rem;
@@ -788,28 +1174,57 @@
                 font-size: 0.8rem;
             }
             
-            /* --- UPDATED: Mobile Nav Bar Fix --- */
             nav .container {
-                justify-content: flex-start; /* Aligns links to the left */
-                padding-left: 10px; /* Adds a bit of space from the edge */
+                justify-content: flex-start;
+                padding-left: 10px;
             }
             nav a {
-                font-size: 1.1rem; /* Smaller font */
-                margin: 2px 8px;   /* Tighter spacing */
-                padding: 3px 6px;  /* Smaller padding */
+                font-size: 1.1rem;
+                margin: 2px 8px;
+                padding: 3px 6px;
             }
             
-            /* --- UPDATED: Card clipping fix --- */
             .card {
                 width: 100%;
+                max-width: 100%;
                 box-sizing: border-box;
-                transform: rotate(0deg); /* Stop rotation on mobile */
+                transform: rotate(0deg);
             }
             
             .card .checkout .footer {
                 flex-direction: column;
                 gap: 20px;
             }
+            
+            .footer-contacts {
+                grid-template-columns: 1fr;
+            }
+
+            /* Adjust for mobile on contact items */
+            .footer-contacts .contact-item {
+                justify-content: center; /* Center items on mobile */
+                padding-left: 0; /* Remove left padding on mobile */
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #about .about-box {
+                min-width: 100%;
+            }
+        }
+
+        /* --- Progress Bar --- */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--marker-pink), var(--marker-orange));
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 2px 10px rgba(254, 95, 85, 0.5);
         }
 
     </style>
@@ -817,8 +1232,9 @@
 
 <body>
     
-    <!-- Sticky Notebook Navigation -->
-    <nav>
+    <!-- Progress Bar --><div class="progress-bar" id="progress-bar"></div>
+    
+    <!-- Sticky Notebook Navigation --><nav id="navbar">
         <div class="container">
             <a href="#hero">Home</a>
             <a href="#about">About</a>
@@ -830,21 +1246,16 @@
         </div>
     </nav>
 
-    <!-- Hero "Notebook Cover" Section -->
-    <header id="hero">
-        <!-- Drastic scribbles added -->
+    <!-- Hero "Notebook Cover" Section --><header id="hero">
         <div class="scribble scribble-lines-1" style="top: -20%; left: -10%; transform: scale(1.5) rotate(-15deg); opacity: 0.1;"></div>
         <div class="scribble scribble-circle-1" style="top: 10%; left: 5%; transform: scale(0.8) rotate(-30deg); opacity: 0.2;"></div>
         <div class="scribble scribble-arrow-1" style="bottom: 15%; right: 5%; transform: scale(1) rotate(120deg); opacity: 0.3;"></div>
-        <div class="scribble scribble-lines-1" style="bottom: -10%; right: -15%; transform: scale(1.2) rotate(25deg); opacity: 0.05;"></div>
         
         <div class="container">
-            <!-- --- NEW --- -->
             <p class="presenter-text">VESIT Presents</p>
             <h1><span class="gradient-text">GENESIS</span></h1>
             <p class="subtitle">A 30-Hour Hackathon by Quest-IT</p>
             
-            <!-- Countdown Timer -->
             <div id="countdown">
                 <div class="timer-box">
                     <span id="cd-days">00</span>
@@ -864,20 +1275,14 @@
                 </div>
             </div>
             
-            <a href="#register" class="btn">
-                Register Now!
-            </a>
+            <a href="#register" class="btn">Register Now!</a>
         </div>
     </header>
 
-    <!-- Main Content "Paper" -->
-    <main class="container">
+    <!-- Main Content "Paper" --><main class="container">
 
-        <!-- About Section -->
-        <section id="about" class="section scroll-reveal scribble-container">
-            <!-- Drastic scribbles added -->
+        <!-- About Section --><section id="about" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-arrow-1"></div>
-            <div class="scribble scribble-lines-1" style="top: 50%; right: -20%; transform: scale(1) rotate(-15deg); opacity: 0.1;"></div>
             
             <div class="about-container">
                 <div class="about-box">
@@ -892,11 +1297,9 @@
             </div>
         </section>
 
-        <!-- Sketchy Divider -->
         <hr class="sketchy">
 
-        <!-- Event Details Section -->
-        <section id="details" class="section scroll-reveal">
+        <!-- Event Details Section --><section id="details" class="section scroll-reveal">
             <h2>Event Details</h2>
             <div class="details-grid">
                 <div class="detail-card">
@@ -922,18 +1325,14 @@
             </div>
         </section>
 
-        <!-- Sketchy Divider -->
         <hr class="sketchy">
 
-        <!-- Why Participate Section (Checklist) -->
-        <section id="why-participate" class="section scroll-reveal scribble-container">
-            <!-- Drastic scribbles added -->
+        <!-- Why Participate Section --><section id="why-participate" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-circle-1" style="opacity: 0.4;"></div>
-            <div class="scribble scribble-lines-1" style="bottom: -20%; left: -10%; transform: scale(1.2) rotate(10deg); opacity: 0.1;"></div>
             
             <h2>Why Participate?</h2>
             <p style="text-align: center; font-size: 1.3rem;">This isn't just another hackathon. It's an opportunity.</p>
-            <ul>
+            <ul id="benefits-list">
                 <li><strong>Build Your Portfolio:</strong> Create a project from scratch that you can showcase to recruiters.</li>
                 <li><strong>Win Awesome Prizes:</strong> Compete for a large prize pool and amazing goodies.</li>
                 <li><strong>Network with Sponsors:</strong> Meet engineers and recruiters from top tech companies.</li>
@@ -942,11 +1341,9 @@
             </ul>
         </section>
         
-        <!-- Sketchy Divider -->
         <hr class="sketchy">
 
-        <!-- Sponsor Wall (Doodles) -->
-        <section id="sponsors" class="section scroll-reveal">
+        <!-- Sponsor Wall --><section id="sponsors" class="section scroll-reveal">
             <h2>Our Supporters</h2>
             <p style="text-align: center;">This event is made possible by our amazing partners.</p>
             
@@ -980,16 +1377,11 @@
             </div>
         </section>
 
-        <!-- Sketchy Divider -->
         <hr class="sketchy">
 
-        <!-- FAQ Section -->
-        <section id="faq" class="section scroll-reveal scribble-container">
-            <!-- Drastic scribbles added -->
+        <!-- FAQ Section --><section id="faq" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-star-1" style="opacity: 0.6; left: -5%; top: 5%;"></div>
-            <div class="scribble scribble-lines-1" style="bottom: -10%; right: -10%; transform: scale(1) rotate(-5deg); opacity: 0.1;"></div>
             
-            <!-- --- UPDATED --- -->
             <h2>Frequently Asked Questions</h2>
             
             <details>
@@ -1024,23 +1416,17 @@
 
     </main>
 
-    <!-- NEW: Registration Section -->
-    <div class="container">
+    <!-- Registration Section --><div class="container">
         <section id="register" class="section scroll-reveal scribble-container">
             
             <h2>Register for GENESIS</h2>
             <p style="text-align: center;">Spots are limited. Secure your free pass!</p>
             
-            <!-- NEW: Registration Card Structure -->
             <div id="registration-form-container">
-                                
-                <!-- Registration Card -->
                 <form class="card" id="registration-form">
-                    <!-- Drastic scribbles added -->
                     <div class="scribble scribble-arrow-1" style="bottom: -20px; left: -50px; transform: scale(0.8) rotate(-40deg); opacity: 0.4;"></div>
                     <div class="scribble scribble-circle-1" style="top: -10px; right: -30px; transform: scale(0.7) rotate(30deg); opacity: 0.3;"></div>
             
-                    <!-- --- UPDATED: Title and Counter --- -->
                     <div class="title">
                         <span>Registration Pass</span>
                         <span id="pass-counter">#001</span>
@@ -1072,194 +1458,293 @@
                     </div>
                     <div class="checkout">
                         <div class="footer">
-                            <span classs="price">FREE</span>
+                            <span class="price">FREE</span>
                             <button type="submit" class="checkout-btn">Register Now</button>
                         </div>
                     </div>
                 </form>
-                
             </div>
                 
         </section>
     </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- Footer --><footer>
         <div class="container">
-            <div class="social-links">
-                <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:questit@ves.ac.in" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            <h3 style="font-size: 2rem; margin-bottom: 25px;">Contact Us</h3>
+            <div class="footer-contacts">
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Anish Tawade : +91 9326597580</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Varun Rahatgaonkar : +91 9372148550</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Eesha Chavan : +91 9653360204</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Pranav Titambe : +91 8928877911</span>
+                </div>
             </div>
-            <p style="font-size: 1rem; color: var(--pencil-light); margin-top: 20px;">
-                Drawn with <i class="fa-solid fa-heart" style="color: var(--marker-pink);"></i> by Quest-IT
+            
+            <div class="footer-email">
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:questit@ves.ac.in">questit@ves.ac.in</a>
+            </div>
+
+            <p class="footer-copyright">
+                © 2025 Quest-IT VESIT. All rights reserved.
             </p>
+            <p class="footer-made-by">Made with <i class="fa-solid fa-heart"></i> by Quest-IT</p>
         </div>
     </footer>
     
-    <!-- Custom Modal for Form Submission -->
-    <div id="message-modal" class="modal-overlay">
-      <div class="modal-box">
-        <h3>Registration Submitted!</h3>
-        <p>Your registration is in! This is a demo, but on the real site, you'd be one step closer. We'll "email" you soon!</p>
-        <button id="close-modal" class="btn">Awesome!</button>
-      </div>
+    <!-- Custom Modal for Form Submission --><div id="message-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="success-checkmark" id="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                </div>
+            </div>
+            <div class="loading-spinner" id="loading-spinner"></div>
+            <h3 id="modal-title">Processing...</h3>
+            <p id="modal-message">Please wait while we register you.</p>
+            <button id="close-modal" class="btn" style="display: none;">Awesome!</button>
+        </div>
     </div>
 
-
-    <!-- JavaScript for Animations and Form Modal -->
     <script>
+        // --- Progress Bar ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // --- Navbar Scroll Effect ---
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (window.innerWidth <= 768) {
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    navbar.style.top = '-150px';
+                } else {
+                    navbar.style.top = '0';
+                }
+            } else {
+                navbar.style.top = '0';
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, false);
+
         // --- Scroll Reveal Animation ---
         const revealElements = document.querySelectorAll('.scroll-reveal');
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing once it's visible
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+        }, { threshold: 0.1 });
 
-        revealElements.forEach(el => {
-            observer.observe(el);
-        });
+        revealElements.forEach(el => revealObserver.observe(el));
 
-        // --- Registration Form Modal ---
-        const form = document.getElementById('registration-form'); // Updated ID
-        const modal = document.getElementById('message-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        
-        // --- Counter Logic ---
-        let registrationCount = 1;
-        const passCounterEl = document.getElementById('pass-counter');
+        // --- Benefits List Animation ---
+        const benefitsList = document.querySelectorAll('#benefits-list li');
+        const benefitsObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered delay for each list item
+                    entry.target.style.transitionDelay = `${index * 0.1}s`;
+                    entry.target.classList.add('visible');
+                    benefitsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Stop the form from actually submitting
-            
-            // --- Increment Counter ---
-            registrationCount++;
-            passCounterEl.innerText = `#${String(registrationCount).padStart(3, '0')}`;
-            
-            // --- Create Confetti! ---
-            createConfetti();
-            
-            // Show the modal after a short delay
-            setTimeout(() => {
-                modal.style.display = 'flex';
-            }, 500); // Wait 500ms for confetti to start
-        });
+        benefitsList.forEach(li => benefitsObserver.observe(li));
 
-        closeModalBtn.addEventListener('click', () => {
-            // Hide the modal
-            modal.style.display = 'none';
-            
-            // Clear the form
-            form.reset();
-        });
+        // --- Countdown Timer ---
+        // Set the date we're counting down to
+        const countdownDate = new Date("Feb 6, 2026 09:00:00").getTime();
 
-        // Also hide modal if clicking on the overlay
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        
-        // --- Countdown Timer Logic ---
-        const countdownTarget = new Date("Feb 6, 2026 08:00:00").getTime();
-
-        const countdownInterval = setInterval(() => {
+        const countdownFunction = setInterval(() => {
             const now = new Date().getTime();
-            const distance = countdownTarget - now;
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById("countdown").innerHTML = "<h3>The Hackathon is LIVE!</h3>";
-                return;
-            }
+            const distance = countdownDate - now;
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Add leading zeros
-            const z = (n) => (n < 10 ? '0' : '') + n;
+            // Helper function to add leading zero
+            const f = (n) => (n < 10 ? '0' + n : n);
 
-            document.getElementById("cd-days").innerText = z(days);
-            document.getElementById("cd-hours").innerText = z(hours);
-            document.getElementById("cd-minutes").innerText = z(minutes);
-            document.getElementById("cd-seconds").innerText = z(seconds);
+            // Display the result in the elements
+            document.getElementById("cd-days").innerText = f(days);
+            document.getElementById("cd-hours").innerText = f(hours);
+            document.getElementById("cd-minutes").innerText = f(minutes);
+            document.getElementById("cd-seconds").innerText = f(seconds);
 
+            // If the countdown is over, write some text 
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<h3 style='font-family: var(--font-heading);'>The Hackathon has begun!</h3>";
+            }
         }, 1000);
-        
-        // --- Confetti Creation Function ---
-        function createConfetti() {
-            const container = document.getElementById('registration-form-container');
-            const colors = ['pink', 'blue', 'orange', '']; // Corresponds to CSS classes
-            const shapes = ['round', 'line', '']; // Corresponds to CSS classes
-            
-            for (let i = 0; i < 50; i++) {
-                const piece = document.createElement('div');
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                piece.className = `confetti-piece ${color} ${shape}`;
-                
-                // Position confetti to start from the center of the card
-                piece.style.left = '50%';
-                piece.style.top = '50%';
-                
-                // Randomize animation properties
-                const randomFall = Math.random() * 2 + 2; // 2-4 seconds
-                const randomDelay = Math.random() * 0.5; // 0-0.5s delay
-                
-                // Animate outwards from the center
-                const xEnd = (Math.random() - 0.5) * 600; // Random horizontal end
-                const yEnd = (Math.random() * 200) + 200; // Fall downwards
-                const rotEnd = (Math.random() - 0.5) * 1000; // Random rotation
 
-                // We'll set the animation using JavaScript's Web Animations API
-                // for more dynamic control, but for simplicity, we can use CSS.
-                // Let's create keyframes dynamically (just kidding, that's too complex)
-                // Let's use the static CSS keyframe but randomize the start
+        // --- Registration Form Handling ---
+        const form = document.getElementById('registration-form');
+        const modal = document.getElementById('message-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const spinner = document.getElementById('loading-spinner');
+        const checkmark = document.getElementById('success-checkmark');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Reset modal state
+            modalTitle.innerText = "Processing...";
+            modalMessage.innerText = "Please wait while we register you.";
+            spinner.classList.add('active');
+            checkmark.classList.remove('active');
+            closeModalBtn.style.display = 'none';
+            modal.style.display = 'flex';
+
+            // Simulate network request
+            setTimeout(() => {
+                // Success state
+                spinner.classList.remove('active');
+                checkmark.classList.add('active');
+                modalTitle.innerText = "You're In!";
+                modalMessage.innerText = "Registration successful. We'll send details to your email!";
+                closeModalBtn.style.display = 'inline-block';
                 
-                // Simpler: use CSS animation and just randomize start left/delay
-                piece.style.left = `${Math.random() * 100}%`;
-                piece.style.top = `${Math.random() * 50 - 20}%`; // Start slightly above/in card
-                piece.style.animation = `confetti-fall ${randomFall}s ease-out ${randomDelay}s forwards`;
+                // Launch confetti
+                launchConfetti();
+            }, 2500);
+        });
+
+        // Close modal
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        // Close modal by clicking overlay
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // --- Pass Counter ---
+        // Simulate a random pass number
+        const passNumber = Math.floor(Math.random() * (250 - 100 + 1)) + 100;
+        document.getElementById('pass-counter').innerText = `#${passNumber.toString().padStart(3, '0')}`;
+        
+        // --- Confetti Function ---
+        function launchConfetti() {
+            const colors = ['pink', 'blue', 'orange', 'yellow'];
+            const shapes = ['round', 'line', 'square'];
+            const modalBox = document.querySelector('.modal-box');
+            const rect = modalBox.getBoundingClientRect();
+
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                piece.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+                piece.classList.add(shapes[Math.floor(Math.random() * shapes.length)]);
                 
-                container.appendChild(piece);
+                // Start from center of modal
+                const startX = rect.left + (rect.width / 2);
+                const startY = rect.top + (rect.height / 2);
+
+                piece.style.left = startX + 'px';
+                piece.style.top = startY + 'px';
                 
-                // Remove the piece after animation
-                setTimeout(() => {
-                    piece.remove();
-                }, (randomFall + randomDelay) * 1000);
+                document.body.appendChild(piece);
+
+                // Animate piece
+                animatePiece(piece, {
+                    x: (Math.random() - 0.5) * 600, // horizontal spread
+                    y: (Math.random() - 0.5) * 600 - 300, // upward/downward spread
+                    opacity: 0,
+                    rotate: Math.random() * 720,
+                    duration: Math.random() * 2 + 1,
+                    onComplete: () => piece.remove()
+                });
             }
         }
         
-        // --- NEW: Mobile Nav Scroll ---
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('nav');
+        // Simple animation function (polyfill for requestAnimationFrame)
+        function animatePiece(piece, props) {
+            const start = performance.now();
+            const duration = props.duration * 1000;
+            const startX = 0;
+            const startY = 0;
+            const startRot = 0;
+            const startOp = 1;
 
-        window.addEventListener("scroll", () => {
-            // Check if we're on mobile (matches the CSS breakpoint)
-            if (window.innerWidth <= 768) {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (scrollTop > lastScrollTop && scrollTop > 100) { 
-                    // Scrolling Down
-                    navbar.style.top = "-150px"; // Hide navbar (increased value to ensure it hides)
+            function tick(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease-out quad
+                const ease = 1 - (1 - progress) * (1 - progress);
+                
+                const currentX = startX + props.x * ease;
+                const currentY = startY + props.y * ease;
+                const currentRot = startRot + props.rotate * ease;
+                const currentOp = startOp - (startOp - props.opacity) * progress;
+
+                piece.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${currentRot}deg)`;
+                piece.style.opacity = currentOp;
+
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
                 } else {
-                    // Scrolling Up
-                    navbar.style.top = "0";
+                    if (props.onComplete) props.onComplete();
                 }
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-            } else {
-                navbar.style.top = "0"; // Ensure it's always visible on desktop
             }
-        }, false);
+            requestAnimationFrame(tick);
+        }
+        
+        // --- Smooth scroll for nav links ---
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    // Offset by navbar height (approx 80px to be safe)
+                    window.scrollTo({
+                        top: offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
     </script>
 
 </body>
-
 </html>
