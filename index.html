@@ -367,7 +367,7 @@
             transform: rotate(-2deg);
             transition: all 0.2s;
         }
-        /* --- NEW: Sticky Note Wiggle Animation --- */
+        /* --- Sticky Note Wiggle Animation --- */
         .detail-card:hover {
             transform: rotate(0deg) scale(1.05);
             animation: card-hover-wiggle 0.3s ease-in-out;
@@ -495,11 +495,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
-            /* --- NEW: Required for confetti --- */
+            padding: 40px 0; 
             position: relative;
-            overflow: hidden; 
+            overflow: hidden; /* Reverted */
         }
+        
+        /* Reverted hover scribble styles */
+
 
         .card {
             width: 400px;
@@ -519,9 +521,11 @@
             width: 100%;
             height: 50px;
             position: relative;
+            /* --- UPDATED --- */
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding-left: 20px;
+            padding: 0 20px;
             border-bottom: 2px dashed #ccc;
             /* Sketchbook theme applied */
             font-family: var(--font-heading);
@@ -530,6 +534,18 @@
             color: var(--pencil-color);
             box-sizing: border-box;
             z-index: 2;
+        }
+        
+        /* --- NEW: Pass Counter Style --- */
+        #pass-counter {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            color: var(--marker-pink);
+            background: #fdf0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px dashed var(--marker-pink);
+            font-weight: 600;
         }
 
         .card .steps {
@@ -703,7 +719,7 @@
           margin-top: 20px;
         }
         
-        /* --- NEW: Confetti Animation --- */
+        /* --- Confetti Animation --- */
         .confetti-piece {
             position: absolute;
             width: 10px;
@@ -754,9 +770,16 @@
             .timer-box p {
                 font-size: 0.8rem;
             }
+            
+            /* --- UPDATED: Mobile Nav Bar Fix --- */
+            nav a {
+                font-size: 1.1rem; /* Smaller font */
+                margin: 2px 8px;   /* Tighter spacing */
+                padding: 3px 6px;  /* Smaller padding */
+            }
         }
 
-        @media (max-width: 450px) {
+        @media (max-width: 650px) { 
             .card {
                 width: 100%;
                 box-sizing: border-box;
@@ -985,12 +1008,19 @@
             
             <!-- NEW: Registration Card Structure -->
             <div id="registration-form-container">
+                
+                <!-- Registration Card -->
                 <form class="card" id="registration-form">
                     <!-- Drastic scribbles added -->
                     <div class="scribble scribble-arrow-1" style="bottom: -20px; left: -50px; transform: scale(0.8) rotate(-40deg); opacity: 0.4;"></div>
                     <div class="scribble scribble-circle-1" style="top: -10px; right: -30px; transform: scale(0.7) rotate(30deg); opacity: 0.3;"></div>
             
-                    <div class="title">Registration Pass</div>
+                    <!-- --- UPDATED: Title and Counter --- -->
+                    <div class="title">
+                        <span>Registration Pass</span>
+                        <span id="pass-counter">#001</span>
+                    </div>
+                    
                     <div class="steps">
                         <div class="step">
                             <span>Step 1: Your Details</span>
@@ -1022,6 +1052,7 @@
                         </div>
                     </div>
                 </form>
+                
             </div>
                 
         </section>
@@ -1072,11 +1103,19 @@
         const form = document.getElementById('registration-form'); // Updated ID
         const modal = document.getElementById('message-modal');
         const closeModalBtn = document.getElementById('close-modal');
+        
+        // --- NEW: Counter Logic ---
+        let registrationCount = 1;
+        const passCounterEl = document.getElementById('pass-counter');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // Stop the form from actually submitting
             
-            // --- NEW: Create Confetti! ---
+            // --- NEW: Increment Counter ---
+            registrationCount++;
+            passCounterEl.innerText = `#${String(registrationCount).padStart(3, '0')}`;
+            
+            // --- Create Confetti! ---
             createConfetti();
             
             // Show the modal after a short delay
@@ -1128,7 +1167,7 @@
 
         }, 1000);
         
-        // --- NEW: Confetti Creation Function ---
+        // --- Confetti Creation Function ---
         function createConfetti() {
             const container = document.getElementById('registration-form-container');
             const colors = ['pink', 'blue', 'orange', '']; // Corresponds to CSS classes
