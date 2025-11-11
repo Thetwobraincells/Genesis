@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENESIS Hackathon - Participant Registration</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- SKETCHBOOK THEME VARIABLES --- */
+        :root {
+            --font-heading: 'Gochi Hand', cursive;
+            --font-body: 'Patrick Hand', cursive;
+            --page-color: #fefcf7;
+            --paper-color: #ffffff;
+            --pencil-color: #333333;
+            --pencil-light: #555;
+            --highlighter-yellow: #ffc857;
+            --marker-orange: #fe5f55;
+            --marker-pink: #e63946;
+            --highlighter-blue: #a8dadc;
+        }
+
+        /* --- BASIC PAGE SETUP --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            background-color: var(--page-color);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C9C9C' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            color: var(--pencil-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            cursor: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/pencil.cur'), auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HAND-DRAWN TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--pencil-color);
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            position: relative;
+            display: inline-block;
+            margin: 40px 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 15px;
+            background: var(--highlighter-yellow);
+            opacity: 0.7;
+            position: absolute;
+            bottom: 10px;
+            left: -5%;
+            z-index: -1;
+            transform: skew(-15deg);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: var(--marker-orange);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        a:hover {
+            color: var(--marker-pink);
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            cursor: crosshair;
+        }
+        
+        /* --- "PIECE OF PAPER" SECTIONS --- */
+        .section {
+            background: var(--paper-color);
+            padding: 40px 30px;
+            margin: 60px auto;
+            border: 2px solid #ddd;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .section::before {
+            content: '\f0c6'; /* Font Awesome paperclip icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 2.5rem;
+            color: var(--pencil-light);
+            transform: rotate(-25deg);
+            z-index: 10; /* Make sure clip is above scribbles */
+        }
+
+        /* --- SCRIBBLE CONTAINER --- */
+        .scribble-container {
+            position: relative;
+            /* Ensure content is above scribbles */
+            z-index: 1; 
+            overflow: hidden; /* Keep scribbles contained */
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        .scribble-container > * {
+            position: relative;
+            z-index: 2; /* All direct children (content) */
+        }
+        
+        .scribble {
+            position: absolute;
+            z-index: 1; /* Scribbles behind content */
+            opacity: 0.5;
+            width: 150px;
+            height: 100px;
+            pointer-events: none; /* Make them unclickable */
+        }
+
+        .scribble.scribble-circle-1 {
+            top: -30px;
+            right: -50px;
+            width: 200px;
+            height: 150px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Cpath d='M100,75 C 100,75 200,0 200,75 C 200,150 100,150 100,75 C 100,0 0,0 0,75 C 0,150 100,150 100,75 Z' stroke='%23fe5f55' stroke-width='2' fill='none' stroke-opacity='0.6' transform='rotate(-10 100 75)'/%3E%3Cpath d='M90,75 C 90,75 180,10 180,75 C 180,140 90,140 90,75 C 90,10 10,10 10,75 C 10,140 90,140 90,75 Z' stroke='%23e63946' stroke-width='1' fill='none' stroke-opacity='0.5' transform='rotate(15 95 75)'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            transform: rotate(15deg) scale(1.2);
+            opacity: 0.3;
+        }
+
+        .scribble.scribble-arrow-1 {
+            bottom: -40px;
+            left: -60px;
+            width: 150px;
+            height: 120px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 120'%3E%3Cpath d='M10 110 Q 80 80, 140 10' stroke='%23a8dadc' stroke-width='3' fill='none' stroke-linecap='round' /%3E%3Cpath d='M140 10 L 130 30' stroke='%23a8dadc' stroke-width='3' fill='none' stroke-linecap='round' /%3E%3Cpath d='M140 10 L 120 25' stroke='%23a8dadc' stroke-width='3' fill='none' stroke-linecap='round' /%3E%3Cpath d='M20 100 Q 85 75, 145 5' stroke='%23a8dadc' stroke-width='1' fill='none' stroke-linecap='round' /%3E%3Cpath d='M145 5 L 135 25' stroke='%23a8dadc' stroke-width='1' fill='none' stroke-linecap='round' /%3E%3Cpath d='M145 5 L 125 20' stroke='%23a8dadc' stroke-width='1' fill='none' stroke-linecap='round' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            transform: rotate(-20deg) scale(1.1);
+            opacity: 0.6;
+        }
+        
+        .scribble.scribble-star-1 {
+            top: 50%;
+            left: -40px;
+            width: 100px;
+            height: 100px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 10 L 60 40 L 90 50 L 60 60 L 50 90 L 40 60 L 10 50 L 40 40 Z' stroke='%23333' stroke-width='1' fill='none' stroke-dasharray='5,5' /%3E%3Cpath d='M 50 15 L 58 42 L 85 50 L 58 58 L 50 85 L 42 58 L 15 50 L 42 42 Z' stroke='%23333' stroke-width='1' fill='none' transform='rotate(5 50 50)' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            opacity: 0.4;
+        }
+        
+        .scribble.scribble-lines-1 {
+            top: -20px;
+            left: -30px;
+            width: 250px;
+            height: 200px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 200'%3E%3Cpath d='M10 10 Q 100 50, 240 20' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 20 Q 110 60, 235 30' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 30 Q 90 70, 245 40' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 40 Q 120 80, 240 50' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 50 Q 100 90, 230 60' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 60 Q 110 100, 240 70' stroke='%23333' stroke-width='1' fill='none' /%3E%React%20%3Cpath d='M5 70 Q 90 110, 235 80' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 80 Q 120 120, 245 90' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 90 Q 100 130, 240 100' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 100 Q 110 140, 230 110' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 110 Q 90 150, 245 120' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 120 Q 120 160, 240 130' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 130 Q 100 170, 230 140' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M15 140 Q 110 180, 245 150' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M5 150 Q 90 190, 235 160' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M20 160 Q 120 200, 240 170' stroke='%23333' stroke-width='1' fill='none' /%3E%3Cpath d='M10 170 Q 100 210, 230 180' stroke='%23333' stroke-width='1' fill='none' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            transform: rotate(-10deg) scale(1.3);
+            opacity: 0.15;
+        }
+
+
+        /* --- STICKY NOTEBOOK NAVIGATION --- */
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(253, 250, 245, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 2px dashed #ccc;
+            padding: 15px 0;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--pencil-light);
+            text-decoration: none;
+            margin: 5px 15px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            transform: rotate(-1deg);
+        }
+        
+        nav a:hover {
+            background: var(--highlighter-yellow);
+            color: var(--pencil-color);
+            transform: rotate(1deg) scale(1.1);
+            text-decoration: none;
+        }
+
+        /* --- HERO "NOTEBOOK COVER" SECTION --- */
+        #hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            flex-direction: column;
+            position: relative; /* For scribbles */
+            overflow: hidden;
+        }
+
+        #hero h1 {
+            font-size: 7rem;
+            line-height: 1;
+            margin: 0;
+            transform: rotate(-2deg);
+            z-index: 2;
+        }
+        
+        /* This is the original gradient style */
+        #hero .gradient-text {
+            background: linear-gradient(45deg, var(--marker-pink), var(--marker-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        #hero .subtitle {
+            font-size: 2rem;
+            font-family: var(--font-heading);
+            color: var(--pencil-light);
+            margin-top: 10px;
+            z-index: 2;
+        }
+        
+        /* --- Countdown Timer Styles --- */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            z-index: 2;
+        }
+        .timer-box {
+            background: var(--paper-color);
+            border: 2px dashed var(--pencil-light);
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+            transform: rotate(-1deg);
+        }
+        .timer-box span {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--marker-pink);
+            line-height: 1.1;
+        }
+        .timer-box p {
+            font-size: 1rem;
+            color: var(--pencil-light);
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* --- SKETCHY BUTTON --- */
+        .btn {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            padding: 12px 25px;
+            border: 2px solid var(--pencil-color);
+            border-radius: 4px 6px 4px 8px;
+            background-color: var(--highlighter-yellow);
+            color: var(--pencil-color);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 4px 4px 0px var(--pencil-light);
+            transition: all 0.1s ease-out;
+            margin-top: 30px;
+            transform: rotate(-1.5deg);
+            z-index: 2;
+        }
+
+        .btn:hover {
+            transform: rotate(1deg) scale(1.05);
+            box-shadow: 6px 6px 0px var(--pencil-light);
+            cursor: crosshair;
+            text-decoration: none;
+        }
+        
+        /* --- SKETCHY HR / DIVIDER --- */
+        hr.sketchy {
+            border: 0;
+            height: 3px;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M.5 5.5c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3 3-3 6-3 3 3 6 3" fill="none" stroke="%23cccccc" stroke-width="1.5"/></svg>');
+            background-repeat: repeat-x;
+            opacity: 0.8;
+            margin: 60px 0;
+        }
+
+        /* --- ABOUT SECTION --- */
+        #about .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        #about .about-box {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        /* --- Event Details Section --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .detail-card {
+            background: #fffaf0;
+            border: 2px dashed var(--highlighter-blue);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transform: rotate(-2deg);
+            transition: all 0.2s;
+        }
+        /* --- NEW: Sticky Note Wiggle Animation --- */
+        .detail-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            animation: card-hover-wiggle 0.3s ease-in-out;
+        }
+        @keyframes card-hover-wiggle {
+            0%   { transform: rotate(0deg) scale(1.05); }
+            25%  { transform: rotate(-1deg) scale(1.05); }
+            50%  { transform: rotate(1deg) scale(1.05); }
+            75%  { transform: rotate(-1deg) scale(1.05); }
+            100% { transform: rotate(0deg) scale(1.05); }
+        }
+
+        .detail-card i {
+            font-size: 2.5rem;
+            color: var(--highlighter-blue);
+            margin-bottom: 10px;
+        }
+        .detail-card h4 {
+            font-size: 1.5rem;
+            margin: 0 0 5px 0;
+        }
+        .detail-card p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* --- Why Participate Section (Checklist) --- */
+        #why-participate ul {
+            list-style: none;
+            padding: 0;
+        }
+        #why-participate li {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        #why-participate li::before {
+            content: '\f00c'; /* Font Awesome check mark */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--marker-orange);
+            font-size: 1.5rem;
+            border: 2px solid var(--pencil-color);
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 3px;
+        }
+        
+        /* --- FAQ Section (Accordion) --- */
+        #faq details {
+            background: #fafafa;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 10px;
+            position: relative;
+            z-index: 2; /* Above scribbles */
+        }
+        #faq summary {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--pencil-light);
+            cursor: crosshair;
+            padding: 5px;
+            position: relative;
+        }
+        #faq summary::marker {
+            color: var(--marker-orange);
+            font-size: 1.2em;
+        }
+        #faq details[open] summary {
+            color: var(--marker-pink);
+        }
+        #faq .faq-answer {
+            padding: 10px 15px 0 30px;
+            border-top: 2px dashed #eee;
+            margin-top: 10px;
+        }
+
+
+        /* --- SPONSOR WALL (Doodles) --- */
+        .sponsor-wall {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .sponsor-logo {
+            text-align: center;
+        }
+        
+        .sponsor-logo img {
+            height: 80px;
+            width: 80px;
+            max-width: 80px;
+            border-radius: 50%;
+            filter: grayscale(100%) contrast(1.2) opacity(0.7);
+            transition: all 0.2s ease;
+        }
+        
+        .sponsor-logo img:hover {
+            filter: grayscale(0%) contrast(1) opacity(1);
+            transform: scale(1.1);
+            cursor: crosshair;
+        }
+        
+        .sponsor-logo span {
+            display: block;
+            font-size: 1rem;
+            color: var(--pencil-light);
+            margin-top: 5px;
+        }
+
+        /* --- NEW: Registration Card Styles --- */
+        #registration-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            /* --- NEW: Required for confetti --- */
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .card {
+            width: 400px;
+            /* Sketchbook theme applied */
+            background: var(--paper-color);
+            border: 2px solid #ddd;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+            transform: rotate(-1deg);
+            /* For scribbles */
+            position: relative;
+            z-index: 2;
+            overflow: hidden; /* Contain scribbles */
+        }
+
+        .card .title {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            border-bottom: 2px dashed #ccc;
+            /* Sketchbook theme applied */
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--pencil-color);
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .card .steps {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card .steps .step {
+            display: grid;
+            gap: 10px;
+        }
+
+        .card .steps .step span {
+            /* Sketchbook theme applied */
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--pencil-color);
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .card .steps .step p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--pencil-light);
+            margin: 0 0 15px 0;
+        }
+
+        .input_field {
+            width: 100%;
+            height: 40px;
+            padding: 0 0 0 12px;
+            box-sizing: border-box;
+            /* Sketchbook theme applied */
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            border: 2px solid var(--pencil-color);
+            background: #fafafa;
+            border-radius: 4px 6px 4px 8px;
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .input_field:focus {
+            outline: 3px dashed var(--highlighter-yellow);
+            background: #fff;
+        }
+
+        .card .checkout {
+            border-top: 2px dashed #ccc;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card .checkout .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 20px;
+        }
+
+        .price {
+            position: relative;
+            font-size: 2rem;
+            color: var(--pencil-color);
+            font-family: var(--font-heading);
+            font-weight: 900;
+        }
+        
+        /* Re-using the .btn style for the checkout button */
+        .checkout-btn {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            padding: 12px 25px;
+            border: 2px solid var(--pencil-color);
+            border-radius: 4px 6px 4px 8px;
+            background-color: var(--highlighter-yellow);
+            color: var(--pencil-color);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 4px 4px 0px var(--pencil-light);
+            transition: all 0.1s ease-out;
+            transform: rotate(-1.5deg);
+            margin: 0; /* Override any defaults */
+            z-index: 2;
+        }
+        
+        .checkout-btn:hover {
+            transform: rotate(1deg) scale(1.05);
+            box-shadow: 6px 6px 0px var(--pencil-light);
+            cursor: crosshair;
+            text-decoration: none;
+        }
+        
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 2px dashed #ccc;
+        }
+        
+        .social-links a {
+            font-size: 2rem;
+            margin: 0 10px;
+            color: var(--pencil-light);
+            transition: all 0.2s;
+        }
+        
+        .social-links a:hover {
+            color: var(--marker-pink);
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        /* --- ANIMATIONS & RESPONSIVENESS --- */
+        @keyframes scribble {
+            from { width: 0; }
+            to { width: 110%; }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal.visible h2::after {
+            animation: scribble 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        
+        /* --- Custom Modal for Form --- */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: none; /* Hidden by default */
+          align-items: center;
+          justify-content: center;
+          z-index: 2000;
+          backdrop-filter: blur(5px);
+        }
+        .modal-box {
+          background: var(--paper-color);
+          padding: 30px;
+          border-radius: 8px;
+          border: 2px solid var(--pencil-color);
+          box-shadow: 5px 8px 15px rgba(0,0,0,0.2);
+          text-align: center;
+          max-width: 400px;
+          width: 90%;
+        }
+        .modal-box h3 {
+          margin-top: 0;
+          color: var(--marker-pink);
+        }
+        .modal-box .btn {
+          margin-top: 20px;
+        }
+        
+        /* --- NEW: Confetti Animation --- */
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--highlighter-yellow);
+            top: 0;
+            opacity: 1;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        .confetti-piece.pink { background: var(--marker-pink); }
+        .confetti-piece.blue { background: var(--highlighter-blue); }
+        .confetti-piece.orange { background: var(--marker-orange); }
+        .confetti-piece.round { border-radius: 50%; }
+        .confetti-piece.line { width: 4px; height: 15px; }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(400px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 4.5rem;
+            }
+            #hero .subtitle {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            #countdown {
+                gap: 10px;
+            }
+            .timer-box {
+                padding: 10px;
+            }
+            .timer-box span {
+                font-size: 2rem;
+            }
+            .timer-box p {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .card {
+                width: 100%;
+                box-sizing: border-box;
+                transform: rotate(0deg);
+            }
+            .card .checkout .footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Sticky Notebook Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#details">Details</a>
+            <a href="#why-participate">Why Join?</a>
+            <a href="#sponsors">Supporters</a>
+            <a href="#faq">FAQs</a>
+            <a href="#register">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero "Notebook Cover" Section -->
+    <header id="hero">
+        <!-- Drastic scribbles added -->
+        <div class="scribble scribble-lines-1" style="top: -20%; left: -10%; transform: scale(1.5) rotate(-15deg); opacity: 0.1;"></div>
+        <div class="scribble scribble-circle-1" style="top: 10%; left: 5%; transform: scale(0.8) rotate(-30deg); opacity: 0.2;"></div>
+        <div class="scribble scribble-arrow-1" style="bottom: 15%; right: 5%; transform: scale(1) rotate(120deg); opacity: 0.3;"></div>
+        <div class="scribble scribble-lines-1" style="bottom: -10%; right: -15%; transform: scale(1.2) rotate(25deg); opacity: 0.05;"></div>
+        
+        <div class="container">
+            <h1><span class="gradient-text">GENESIS</span></h1>
+            <p class="subtitle">A 30-Hour Hackathon by Quest-IT</p>
+            
+            <!-- Countdown Timer -->
+            <div id="countdown">
+                <div class="timer-box">
+                    <span id="cd-days">00</span>
+                    <p>Days</p>
+                </div>
+                <div class="timer-box">
+                    <span id="cd-hours">00</span>
+                    <p>Hours</p>
+                </div>
+                <div class="timer-box">
+                    <span id="cd-minutes">00</span>
+                    <p>Minutes</p>
+                </div>
+                <div class="timer-box">
+                    <span id="cd-seconds">00</span>
+                    <p>Seconds</p>
+                </div>
+            </div>
+            
+            <a href="#register" class="btn">
+                Register Now!
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content "Paper" -->
+    <main class="container">
+
+        <!-- About Section -->
+        <section id="about" class="section scroll-reveal scribble-container">
+            <!-- Drastic scribbles added -->
+            <div class="scribble scribble-arrow-1"></div>
+            <div class="scribble scribble-lines-1" style="top: 50%; right: -20%; transform: scale(1) rotate(-15deg); opacity: 0.1;"></div>
+            
+            <div class="about-container">
+                <div class="about-box">
+                    <h3>About GENESIS</h3>
+                    <p>GENESIS is a 30-hour offline hackathon where brilliant minds come together to build innovative solutions for challenging problem statements. We aim to foster problem-solving and innovation among students in high-impact domains.</p>
+                    <p>Participants will tackle real-world challenges in <strong>AI, FinTech, Blockchain, Cybersecurity, Sustainability, and Healthcare</strong>. It's a non-stop marathon of coding, creativity, and collaboration!</p>
+                </div>
+                <div class="about-box">
+                    <h3>About Quest-IT</h3>
+                    <p>Quest-IT, the VESIT Technical Cell, is a hub dedicated to fostering innovation and technological excellence. With 4 years of experience, our mission is to empower students with practical skills through engaging workshops, hackathons, and a collaborative community.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sketchy Divider -->
+        <hr class="sketchy">
+
+        <!-- Event Details Section -->
+        <section id="details" class="section scroll-reveal">
+            <h2>Event Details</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <h4>Date</h4>
+                    <p>6th & 7th Feb 2026</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fa-regular fa-clock"></i>
+                    <h4>Duration</h4>
+                    <p>30 Hours (Offline)</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>Venue</h4>
+                    <p>VESIT Campus</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fa-solid fa-users"></i>
+                    <h4>Team Size</h4>
+                    <p>2 - 4 Members</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sketchy Divider -->
+        <hr class="sketchy">
+
+        <!-- Why Participate Section (Checklist) -->
+        <section id="why-participate" class="section scroll-reveal scribble-container">
+            <!-- Drastic scribbles added -->
+            <div class="scribble scribble-circle-1" style="opacity: 0.4;"></div>
+            <div class="scribble scribble-lines-1" style="bottom: -20%; left: -10%; transform: scale(1.2) rotate(10deg); opacity: 0.1;"></div>
+            
+            <h2>Why Participate?</h2>
+            <p style="text-align: center; font-size: 1.3rem;">This isn't just another hackathon. It's an opportunity.</p>
+            <ul>
+                <li><strong>Build Your Portfolio:</strong> Create a project from scratch that you can showcase to recruiters.</li>
+                <li><strong>Win Awesome Prizes:</strong> Compete for a large prize pool and amazing goodies.</li>
+                <li><strong>Network with Sponsors:</strong> Meet engineers and recruiters from top tech companies.</li>
+                <li><strong>Learn New Skills:</strong> Challenge yourself to learn new technologies under pressure.</li>
+                <li><strong>Get Free Food & Swag:</strong> We'll keep you fueled for all 30 hours!</li>
+            </ul>
+        </section>
+        
+        <!-- Sketchy Divider -->
+        <hr class="sketchy">
+
+        <!-- Sponsor Wall (Doodles) -->
+        <section id="sponsors" class="section scroll-reveal">
+            <h2>Our Supporters</h2>
+            <p style="text-align: center;">This event is made possible by our amazing partners.</p>
+            
+            <h3>Current Sponsors</h3>
+            <div class="sponsor-wall">
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/Gemini?colors=e63946,fe5f55,ffc857,fefcf7" alt="Gemini">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/unstop?colors=e63946,fe5f55,ffc857,fefcf7" alt="unstop">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/GiveMyCertificate?colors=e63946,fe5f55,ffc857,fefcf7" alt="Give My Certificate">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/interview?colors=e63946,fe5f55,ffc857,fefcf7" alt="interview">
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Past Sponsors</h3>
+            <div class="sponsor-wall">
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/GeeksforGeeks?colors=e63946,fe5f55,ffc857,fefcf7" alt="GeeksforGeeks">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/networkmarvels?colors=e63946,fe5f55,ffc857,fefcf7" alt="network marvels">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://source.boringavatars.com/beam/120/scrimba?colors=e63946,fe5f55,ffc857,fefcf7" alt="scrimba">
+                </div>
+            </div>
+        </section>
+
+        <!-- Sketchy Divider -->
+        <hr class="sketchy">
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section scroll-reveal scribble-container">
+            <!-- Drastic scribbles added -->
+            <div class="scribble scribble-star-1" style="opacity: 0.6; left: -5%; top: 5%;"></div>
+            <div class="scribble scribble-lines-1" style="bottom: -10%; right: -10%; transform: scale(1) rotate(-5deg); opacity: 0.1;"></div>
+            
+            <h2>Frequently Asked Doodles</h2>
+            
+            <details>
+                <summary>Who can participate?</summary>
+                <div class="faq-answer">
+                    <p>GENESIS is open to all students of VESIT. You can be from any branch or year!</p>
+                </div>
+            </details>
+            
+            <details>
+                <summary>How much does it cost?</summary>
+                <div class="faq-answer">
+                    <p>Absolutely nothing! Participation is 100% free for all selected students. Plus, there's free food, drinks, and swag!</p>
+                </div>
+            </details>
+            
+            <details>
+                <summary>What if I don't have a team?</summary>
+                <div class="faq-answer">
+                    <p>No problem! You can register as an individual. We will have a team-matching session on Discord and at the event itself so you can find other awesome people to work with.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>What should I bring?</summary>
+                <div class="faq-answer">
+                    <p>Your laptop, chargers, any necessary hardware, a sleeping bag (if you plan to nap!), and a whole lot of enthusiasm.</p>
+                </div>
+            </details>
+
+        </section>
+
+    </main>
+
+    <!-- NEW: Registration Section -->
+    <div class="container">
+        <section id="register" class="section scroll-reveal scribble-container">
+            
+            <h2>Register for GENESIS</h2>
+            <p style="text-align: center;">Spots are limited. Secure your free pass!</p>
+            
+            <!-- NEW: Registration Card Structure -->
+            <div id="registration-form-container">
+                <form class="card" id="registration-form">
+                    <!-- Drastic scribbles added -->
+                    <div class="scribble scribble-arrow-1" style="bottom: -20px; left: -50px; transform: scale(0.8) rotate(-40deg); opacity: 0.4;"></div>
+                    <div class="scribble scribble-circle-1" style="top: -10px; right: -30px; transform: scale(0.7) rotate(30deg); opacity: 0.3;"></div>
+            
+                    <div class="title">Registration Pass</div>
+                    <div class="steps">
+                        <div class="step">
+                            <span>Step 1: Your Details</span>
+                            <div class="form-group">
+                                <label for="name" style="font-family: var(--font-body); font-size: 1.1rem; text-align: left;">Full Name</label>
+                                <input class="input_field" type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" style="font-family: var(--font-body); font-size: 1.1rem; text-align: left;">Email Address</label>
+                                <input class="input_field" type="email" id="email" required>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span>Step 2: Team Details</span>
+                            <div class="form-group">
+                                <label for="college" style="font-family: var(--font-body); font-size: 1.1rem; text-align: left;">College Name</label>
+                                <input class="input_field" type="text" id="college" value="VESIT" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="team-name" style="font-family: var(--font-body); font-size: 1.1rem; text-align: left;">Team Name (Optional)</label>
+                                <input class="input_field" type="text" id="team-name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout">
+                        <div class="footer">
+                            <span classs="price">FREE</span>
+                            <button type="submit" class="checkout-btn">Register Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="mailto:questit@ves.ac.in" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p style="font-size: 1rem; color: var(--pencil-light); margin-top: 20px;">
+                Drawn with <i class="fa-solid fa-heart" style="color: var(--marker-pink);"></i> by Quest-IT
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Custom Modal for Form Submission -->
+    <div id="message-modal" class="modal-overlay">
+      <div class="modal-box">
+        <h3>Registration Submitted!</h3>
+        <p>Your registration is in! This is a demo, but on the real site, you'd be one step closer. We'll "email" you soon!</p>
+        <button id="close-modal" class="btn">Awesome!</button>
+      </div>
+    </div>
+
+
+    <!-- JavaScript for Animations and Form Modal -->
+    <script>
+        // --- Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once it's visible
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- Registration Form Modal ---
+        const form = document.getElementById('registration-form'); // Updated ID
+        const modal = document.getElementById('message-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Stop the form from actually submitting
+            
+            // --- NEW: Create Confetti! ---
+            createConfetti();
+            
+            // Show the modal after a short delay
+            setTimeout(() => {
+                modal.style.display = 'flex';
+            }, 500); // Wait 500ms for confetti to start
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            // Hide the modal
+            modal.style.display = 'none';
+            
+            // Clear the form
+            form.reset();
+        });
+
+        // Also hide modal if clicking on the overlay
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // --- Countdown Timer Logic ---
+        const countdownTarget = new Date("Feb 6, 2026 08:00:00").getTime();
+
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownTarget - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "<h3>The Hackathon is LIVE!</h3>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Add leading zeros
+            const z = (n) => (n < 10 ? '0' : '') + n;
+
+            document.getElementById("cd-days").innerText = z(days);
+            document.getElementById("cd-hours").innerText = z(hours);
+            document.getElementById("cd-minutes").innerText = z(minutes);
+            document.getElementById("cd-seconds").innerText = z(seconds);
+
+        }, 1000);
+        
+        // --- NEW: Confetti Creation Function ---
+        function createConfetti() {
+            const container = document.getElementById('registration-form-container');
+            const colors = ['pink', 'blue', 'orange', '']; // Corresponds to CSS classes
+            const shapes = ['round', 'line', '']; // Corresponds to CSS classes
+            
+            for (let i = 0; i < 50; i++) {
+                const piece = document.createElement('div');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                piece.className = `confetti-piece ${color} ${shape}`;
+                
+                // Position confetti to start from the center of the card
+                piece.style.left = '50%';
+                piece.style.top = '50%';
+                
+                // Randomize animation properties
+                const randomFall = Math.random() * 2 + 2; // 2-4 seconds
+                const randomDelay = Math.random() * 0.5; // 0-0.5s delay
+                
+                // Animate outwards from the center
+                const xEnd = (Math.random() - 0.5) * 600; // Random horizontal end
+                const yEnd = (Math.random() * 200) + 200; // Fall downwards
+                const rotEnd = (Math.random() - 0.5) * 1000; // Random rotation
+
+                // We'll set the animation using JavaScript's Web Animations API
+                // for more dynamic control, but for simplicity, we can use CSS.
+                // Let's create keyframes dynamically (just kidding, that's too complex)
+                // Let's use the static CSS keyframe but randomize the start
+                
+                // Simpler: use CSS animation and just randomize start left/delay
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.top = `${Math.random() * 50 - 20}%`; // Start slightly above/in card
+                piece.style.animation = `confetti-fall ${randomFall}s ease-out ${randomDelay}s forwards`;
+                
+                container.appendChild(piece);
+                
+                // Remove the piece after animation
+                setTimeout(() => {
+                    piece.remove();
+                }, (randomFall + randomDelay) * 1000);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
