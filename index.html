@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENESIS Hackathon - Participant Registration</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Patrick+Hand&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -40,14 +38,6 @@
             --marker-pink: #ff4757;
             --highlighter-blue: #70c1b3;
         }
-        
-        [data-theme="dark"] nav a {
-            color: var(--pencil-color); /* Use the main light text color */
-        }
-        
-        [data-theme="dark"] nav a:hover {
-            color: var(--highlighter-yellow); /* Make hover stand out */
-        }
 
         [data-theme="dark"] body {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
@@ -61,6 +51,16 @@
             background-color: rgba(30, 30, 30, 0.95);
             border-bottom: 2px dashed #555;
         }
+
+        /* --- THIS IS THE FIX --- */
+        [data-theme="dark"] #navbar a {
+            color: var(--pencil-color); /* This is the bright text color */
+        }
+
+        [data-theme="dark"] #navbar a:hover {
+            color: var(--highlighter-yellow); /* This sets the hover color */
+        }
+        /* --- END OF FIX --- */
 
         [data-theme="dark"] .detail-card {
             background: #3a3a3a;
@@ -1516,15 +1516,12 @@
 
 <body>
     
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progress-bar"></div>
     
-    <!-- Dark Mode Toggle Button -->
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
         <i class="fa-solid fa-moon" id="theme-icon"></i>
     </button>
     
-    <!-- Sticky Notebook Navigation -->
     <nav id="navbar">
         <div class="container">
             <a href="#hero">Home</a>
@@ -1537,7 +1534,6 @@
         </div>
     </nav>
 
-    <!-- Hero "Notebook Cover" Section -->
     <header id="hero">
         <div class="scribble scribble-lines-1" style="top: -20%; left: -10%; transform: scale(1.5) rotate(-15deg); opacity: 0.1;"></div>
         <div class="scribble scribble-circle-1" style="top: 10%; left: 5%; transform: scale(0.8) rotate(-30deg); opacity: 0.2;"></div>
@@ -1571,10 +1567,8 @@
         </div>
     </header>
 
-    <!-- Main Content "Paper" -->
     <main class="container">
 
-        <!-- About Section -->
         <section id="about" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-arrow-1"></div>
             
@@ -1593,7 +1587,6 @@
 
         <hr class="sketchy">
 
-        <!-- Event Details Section -->
         <section id="details" class="section scroll-reveal">
             <h2>Event Details</h2>
             <div class="details-grid">
@@ -1622,7 +1615,6 @@
 
         <hr class="sketchy">
 
-        <!-- Why Participate Section -->
         <section id="why-participate" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-circle-1" style="opacity: 0.4;"></div>
             
@@ -1639,7 +1631,6 @@
         
         <hr class="sketchy">
 
-        <!-- Sponsor Wall -->
         <section id="sponsors" class="section scroll-reveal">
             <h2>Our Supporters</h2>
             <p style="text-align: center;">This event is made possible by our amazing partners.</p>
@@ -1679,7 +1670,6 @@
 
         <hr class="sketchy">
 
-        <!-- FAQ Section -->
         <section id="faq" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-star-1" style="opacity: 0.6; left: -5%; top: 5%;"></div>
             
@@ -1717,7 +1707,6 @@
 
     </main>
 
-    <!-- Registration Section -->
     <div class="container">
         <section id="register" class="section scroll-reveal scribble-container">
             
@@ -1770,7 +1759,6 @@
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <h3 style="font-size: 2rem; margin-bottom: 25px;">Contact Us</h3>
@@ -1805,7 +1793,6 @@
         </div>
     </footer>
     
-    <!-- Custom Modal for Form Submission -->
     <div id="message-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="success-checkmark" id="success-checkmark">
