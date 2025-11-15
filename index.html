@@ -29,6 +29,91 @@
             --highlighter-blue: #a8dadc;
         }
 
+        /* --- DARK MODE VARIABLES --- */
+        [data-theme="dark"] {
+            --page-color: #1a1a1a;
+            --paper-color: #2d2d2d;
+            --pencil-color: #e0e0e0;
+            --pencil-light: #b0b0b0;
+            --highlighter-yellow: #ffb627;
+            --marker-orange: #ff6b5a;
+            --marker-pink: #ff4757;
+            --highlighter-blue: #70c1b3;
+        }
+
+        [data-theme="dark"] body {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        [data-theme="dark"] .section {
+            box-shadow: 5px 8px 15px rgba(0,0,0,0.5);
+        }
+
+        [data-theme="dark"] nav {
+            background-color: rgba(30, 30, 30, 0.95);
+            border-bottom: 2px dashed #555;
+        }
+
+        [data-theme="dark"] .detail-card {
+            background: #3a3a3a;
+        }
+
+        [data-theme="dark"] #faq details {
+            background: #3a3a3a;
+            border: 2px dashed #555;
+        }
+
+        [data-theme="dark"] #faq details:hover {
+            background: #424242;
+        }
+
+        [data-theme="dark"] .input_field {
+            background: #3a3a3a;
+            color: #e0e0e0;
+        }
+
+        [data-theme="dark"] .input_field:focus {
+            background: #424242;
+        }
+
+        /* --- Dark Mode Toggle Button --- */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--highlighter-yellow);
+            border: 3px solid var(--pencil-color);
+            box-shadow: 4px 4px 0px var(--pencil-light);
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            transform: rotate(-10deg);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 6px 6px 0px var(--pencil-light);
+        }
+
+        .theme-toggle:active {
+            transform: rotate(0deg) scale(0.95);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
+        }
+
         /* --- BASIC PAGE SETUP --- */
         html {
             scroll-behavior: smooth;
@@ -1161,6 +1246,7 @@
             box-shadow: 0 2px 10px rgba(254, 95, 85, 0.5);
         }
 
+
         /* --- Mobile Touch Feedback --- */
         @media (hover: none) and (pointer: coarse) {
             .btn:active, .checkout-btn:active {
@@ -1370,6 +1456,14 @@
                 width: 70px;
                 max-width: 70px;
             }
+
+            /* Fixed buttons on mobile */
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                font-size: 1.3rem;
+            }
         }
         
         /* Extra small devices */
@@ -1416,6 +1510,11 @@
     
     <!-- Progress Bar -->
     <div class="progress-bar" id="progress-bar"></div>
+    
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+        <i class="fa-solid fa-moon" id="theme-icon"></i>
+    </button>
     
     <!-- Sticky Notebook Navigation -->
     <nav id="navbar">
@@ -1715,6 +1814,69 @@
     </div>
 
     <script>
+        // --- Dark Mode Toggle ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeIcon.className = currentTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            
+            // Fun animation
+            themeToggle.style.animation = 'bounce 0.6s ease-out';
+            setTimeout(() => {
+                themeToggle.style.animation = '';
+            }, 600);
+        });
+
+        // --- Easter Eggs ---
+        let clickCount = 0;
+        const logo = document.querySelector('#hero h1');
+        
+        logo.addEventListener('click', () => {
+            clickCount++;
+            
+            if (clickCount === 3) {
+                // Triple click easter egg - Rainbow effect
+                logo.style.animation = 'gradientShift 0.5s ease-in-out 3';
+                
+                // Confetti burst
+                launchConfetti();
+                
+                clickCount = 0;
+            }
+            
+            // Shake effect on each click
+            logo.style.animation = 'wiggle 0.3s ease-in-out';
+            setTimeout(() => {
+                logo.style.animation = '';
+            }, 300);
+        });
+
+        // Secret Konami Code Easter Egg
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'spin 2s ease-in-out';
+                setTimeout(() => {
+                }, 2000);
+                konamiCode = [];
+            }
+        });
+
         // --- Progress Bar ---
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
