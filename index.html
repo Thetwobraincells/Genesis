@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENESIS Hackathon - Participant Registration</title>
 
-    <!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Patrick+Hand&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         /* --- SKETCHBOOK THEME VARIABLES --- */
@@ -861,7 +862,7 @@
             gap: 15px;
             max-width: 700px;
             margin: 0 auto 30px auto;
-            text-align: center; /* Ensures the grid container is centered */
+            text-align: center;
         }
         
         .footer-contacts .contact-item {
@@ -870,8 +871,8 @@
             gap: 10px;
             font-size: 1.1rem;
             transition: transform 0.3s ease;
-            justify-content: flex-start; /* Align items to the start of their grid cell */
-            padding-left: 50px; /* Shift contact items to the right */
+            justify-content: flex-start;
+            padding-left: 50px;
         }
 
         .footer-contacts .contact-item:hover {
@@ -914,7 +915,7 @@
         .footer-made-by .fa-heart {
             color: var(--marker-pink);
             animation: pulse 1.5s ease-in-out infinite;
-            display: inline-block; /* for animation */
+            display: inline-block;
         }
         
         /* --- Custom Modal for Form --- */
@@ -1148,72 +1149,6 @@
             animation: float 10s ease-in-out infinite reverse;
         }
 
-        /* --- Responsive Styles --- */
-        @media (max-width: 768px) {
-            #hero h1 {
-                font-size: 4.5rem;
-            }
-            #hero .subtitle {
-                font-size: 1.5rem;
-            }
-            h2 {
-                font-size: 2.5rem;
-            }
-            #countdown {
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            .timer-box {
-                padding: 8px 15px;
-            }
-            .timer-box span {
-                font-size: 2rem;
-            }
-            .timer-box p {
-                font-size: 0.8rem;
-            }
-            
-            nav .container {
-                justify-content: flex-start;
-                padding-left: 10px;
-            }
-            nav a {
-                font-size: 1.1rem;
-                margin: 2px 8px;
-                padding: 3px 6px;
-            }
-            
-            .card {
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-                transform: rotate(0deg);
-            }
-            
-            .card .checkout .footer {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .footer-contacts {
-                grid-template-columns: 1fr;
-            }
-
-            /* Adjust for mobile on contact items */
-            .footer-contacts .contact-item {
-                justify-content: center; /* Center items on mobile */
-                padding-left: 0; /* Remove left padding on mobile */
-            }
-
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-
-            #about .about-box {
-                min-width: 100%;
-            }
-        }
-
         /* --- Progress Bar --- */
         .progress-bar {
             position: fixed;
@@ -1226,14 +1161,264 @@
             box-shadow: 0 2px 10px rgba(254, 95, 85, 0.5);
         }
 
+        /* --- Mobile Touch Feedback --- */
+        @media (hover: none) and (pointer: coarse) {
+            .btn:active, .checkout-btn:active {
+                transform: scale(0.95) !important;
+                transition: transform 0.1s !important;
+            }
+            
+            .detail-card:active {
+                transform: scale(0.98) !important;
+            }
+            
+            nav a:active {
+                background: var(--highlighter-yellow);
+                opacity: 0.8;
+            }
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            /* Make hero more dramatic on mobile */
+            #hero {
+                min-height: 100vh;
+                padding: 20px 15px;
+            }
+            
+            #hero h1 {
+                font-size: 4rem;
+                margin: 10px 0;
+                animation: bounceIn 1s ease-out;
+            }
+            
+            @keyframes bounceIn {
+                0% { transform: scale(0.3) rotate(-2deg); opacity: 0; }
+                50% { transform: scale(1.05) rotate(-2deg); }
+                70% { transform: scale(0.9) rotate(-2deg); }
+                100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+            }
+            
+            .presenter-text {
+                font-size: 1.3rem;
+            }
+            
+            #hero .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            /* Make countdown more compact and playful */
+            #countdown {
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .timer-box {
+                padding: 10px 12px;
+                transform: rotate(-2deg);
+            }
+            .timer-box:nth-child(2) {
+                transform: rotate(2deg);
+            }
+            .timer-box:nth-child(3) {
+                transform: rotate(-1deg);
+            }
+            .timer-box:nth-child(4) {
+                transform: rotate(1.5deg);
+            }
+            .timer-box span {
+                font-size: 2.2rem;
+            }
+            .timer-box p {
+                font-size: 0.85rem;
+            }
+            
+            /* Sticky nav improvements */
+            nav {
+                padding: 10px 0;
+            }
+            nav .container {
+                justify-content: flex-start;
+                padding: 0 10px;
+                gap: 5px;
+            }
+            nav a {
+                font-size: 1rem;
+                margin: 3px 5px;
+                padding: 5px 10px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 15px;
+            }
+            
+            /* Sections with more breathing room */
+            .section {
+                padding: 30px 20px;
+                margin: 40px 10px;
+            }
+            
+            /* Make buttons more tappable */
+            .btn {
+                font-size: 1.4rem;
+                padding: 15px 30px;
+                margin-top: 25px;
+                min-width: 200px;
+            }
+            
+            /* Registration card */
+            .card {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                transform: rotate(0deg);
+                margin: 0 10px;
+            }
+            
+            .card .title {
+                height: 60px;
+                font-size: 1.3rem;
+            }
+            
+            .input_field {
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .card .checkout .footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .checkout-btn {
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .price {
+                text-align: center;
+                font-size: 2.5rem;
+            }
+            
+            /* Detail cards */
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .detail-card {
+                padding: 15px;
+            }
+            
+            .detail-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .detail-card p {
+                font-size: 1rem;
+            }
+            
+            /* About section */
+            #about .about-box {
+                min-width: 100%;
+            }
+            
+            /* FAQ section */
+            #faq summary {
+                font-size: 1.3rem;
+            }
+            
+            /* Footer improvements */
+            .footer-contacts {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .footer-contacts .contact-item {
+                justify-content: center;
+                padding-left: 0;
+                font-size: 1rem;
+            }
+            
+            .footer-contacts .contact-item i {
+                font-size: 1.2rem;
+            }
+            
+            /* Modal improvements */
+            .modal-box {
+                width: 85%;
+                padding: 30px 20px;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            
+            .modal-box h3 {
+                font-size: 2rem;
+            }
+            
+            /* Reduce animations for performance */
+            .scribble {
+                display: none;
+            }
+            
+            /* Make sponsor logos bigger on mobile */
+            .sponsor-logo img {
+                height: 70px;
+                width: 70px;
+                max-width: 70px;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            #hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .presenter-text {
+                font-size: 1.1rem;
+            }
+            
+            #hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .timer-box {
+                padding: 8px 10px;
+            }
+            
+            .timer-box span {
+                font-size: 1.8rem;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                padding: 4px 8px;
+                margin: 2px 3px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
     
-    <!-- Progress Bar --><div class="progress-bar" id="progress-bar"></div>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
     
-    <!-- Sticky Notebook Navigation --><nav id="navbar">
+    <!-- Sticky Notebook Navigation -->
+    <nav id="navbar">
         <div class="container">
             <a href="#hero">Home</a>
             <a href="#about">About</a>
@@ -1245,7 +1430,8 @@
         </div>
     </nav>
 
-    <!-- Hero "Notebook Cover" Section --><header id="hero">
+    <!-- Hero "Notebook Cover" Section -->
+    <header id="hero">
         <div class="scribble scribble-lines-1" style="top: -20%; left: -10%; transform: scale(1.5) rotate(-15deg); opacity: 0.1;"></div>
         <div class="scribble scribble-circle-1" style="top: 10%; left: 5%; transform: scale(0.8) rotate(-30deg); opacity: 0.2;"></div>
         <div class="scribble scribble-arrow-1" style="bottom: 15%; right: 5%; transform: scale(1) rotate(120deg); opacity: 0.3;"></div>
@@ -1278,9 +1464,11 @@
         </div>
     </header>
 
-    <!-- Main Content "Paper" --><main class="container">
+    <!-- Main Content "Paper" -->
+    <main class="container">
 
-        <!-- About Section --><section id="about" class="section scroll-reveal scribble-container">
+        <!-- About Section -->
+        <section id="about" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-arrow-1"></div>
             
             <div class="about-container">
@@ -1298,7 +1486,8 @@
 
         <hr class="sketchy">
 
-        <!-- Event Details Section --><section id="details" class="section scroll-reveal">
+        <!-- Event Details Section -->
+        <section id="details" class="section scroll-reveal">
             <h2>Event Details</h2>
             <div class="details-grid">
                 <div class="detail-card">
@@ -1326,7 +1515,8 @@
 
         <hr class="sketchy">
 
-        <!-- Why Participate Section --><section id="why-participate" class="section scroll-reveal scribble-container">
+        <!-- Why Participate Section -->
+        <section id="why-participate" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-circle-1" style="opacity: 0.4;"></div>
             
             <h2>Why Participate?</h2>
@@ -1342,7 +1532,8 @@
         
         <hr class="sketchy">
 
-        <!-- Sponsor Wall --><section id="sponsors" class="section scroll-reveal">
+        <!-- Sponsor Wall -->
+        <section id="sponsors" class="section scroll-reveal">
             <h2>Our Supporters</h2>
             <p style="text-align: center;">This event is made possible by our amazing partners.</p>
             
@@ -1350,12 +1541,15 @@
             <div class="sponsor-wall">
                 <div class="sponsor-logo">
                     <img src="https://static.vecteezy.com/system/resources/previews/055/687/065/non_2x/gemini-google-icon-symbol-logo-free-png.png" alt="Gemini">
+                    <span>Gemini</span>
                 </div>
                 <div class="sponsor-logo">
                     <img src="https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/branding-guidelines/icon/unstop-icon-800x800.png" alt="unstop">
+                    <span>Unstop</span>
                 </div>
                 <div class="sponsor-logo">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPcYIJAWI9_tnLby1dQV-dmGtCSv4HdFubbQ&s" alt="Give My Certificate">
+                    <span>Give My Certificate</span>
                 </div>
             </div>
 
@@ -1363,19 +1557,23 @@
             <div class="sponsor-wall">
                 <div class="sponsor-logo">
                     <img src="https://media.geeksforgeeks.org/wp-content/uploads/20210511160813/g4g.jpg" alt="GeeksforGeeks">
+                    <span>GeeksforGeeks</span>
                 </div>
                 <div class="sponsor-logo">
                     <img src="https://media.glassdoor.com/sqll/1256839/network-marvels-squarelogo-1498657182231.png" alt="network marvels">
+                    <span>Network Marvels</span>
                 </div>
                 <div class="sponsor-logo">
                     <img src="https://coursereport-s3-production.global.ssl.fastly.net/uploads/school/logo/1698/original/301197929_499991412128946_6219859075178017160_n.png" alt="scrimba">
+                    <span>Scrimba</span>
                 </div>
             </div>
         </section>
 
         <hr class="sketchy">
 
-        <!-- FAQ Section --><section id="faq" class="section scroll-reveal scribble-container">
+        <!-- FAQ Section -->
+        <section id="faq" class="section scroll-reveal scribble-container">
             <div class="scribble scribble-star-1" style="opacity: 0.6; left: -5%; top: 5%;"></div>
             
             <h2>Frequently Asked Questions</h2>
@@ -1412,7 +1610,8 @@
 
     </main>
 
-    <!-- Registration Section --><div class="container">
+    <!-- Registration Section -->
+    <div class="container">
         <section id="register" class="section scroll-reveal scribble-container">
             
             <h2>Register for GENESIS</h2>
@@ -1464,7 +1663,8 @@
         </section>
     </div>
 
-    <!-- Footer --><footer>
+    <!-- Footer -->
+    <footer>
         <div class="container">
             <h3 style="font-size: 2rem; margin-bottom: 25px;">Contact Us</h3>
             <div class="footer-contacts">
@@ -1498,7 +1698,8 @@
         </div>
     </footer>
     
-    <!-- Custom Modal for Form Submission --><div id="message-modal" class="modal-overlay">
+    <!-- Custom Modal for Form Submission -->
+    <div id="message-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="success-checkmark" id="success-checkmark">
                 <div class="check-icon">
@@ -1566,7 +1767,6 @@
         const benefitsObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // Add staggered delay for each list item
                     entry.target.style.transitionDelay = `${index * 0.1}s`;
                     entry.target.classList.add('visible');
                     benefitsObserver.unobserve(entry.target);
@@ -1577,7 +1777,6 @@
         benefitsList.forEach(li => benefitsObserver.observe(li));
 
         // --- Countdown Timer ---
-        // Set the date we're counting down to
         const countdownDate = new Date("Feb 6, 2026 09:00:00").getTime();
 
         const countdownFunction = setInterval(() => {
@@ -1589,16 +1788,13 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Helper function to add leading zero
             const f = (n) => (n < 10 ? '0' + n : n);
 
-            // Display the result in the elements
             document.getElementById("cd-days").innerText = f(days);
             document.getElementById("cd-hours").innerText = f(hours);
             document.getElementById("cd-minutes").innerText = f(minutes);
             document.getElementById("cd-seconds").innerText = f(seconds);
 
-            // If the countdown is over, write some text 
             if (distance < 0) {
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "<h3 style='font-family: var(--font-heading);'>The Hackathon has begun!</h3>";
@@ -1617,7 +1813,6 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Reset modal state
             modalTitle.innerText = "Processing...";
             modalMessage.innerText = "Please wait while we register you.";
             spinner.classList.add('active');
@@ -1625,25 +1820,21 @@
             closeModalBtn.style.display = 'none';
             modal.style.display = 'flex';
 
-            // Simulate network request
             setTimeout(() => {
-                // Success state
                 spinner.classList.remove('active');
                 checkmark.classList.add('active');
                 modalTitle.innerText = "You're In!";
                 modalMessage.innerText = "Registration successful. We'll send details to your email!";
                 closeModalBtn.style.display = 'inline-block';
                 
-                // Launch confetti
                 launchConfetti();
             }, 2500);
         });
 
-        // Close modal
         closeModalBtn.addEventListener('click', () => {
             modal.style.display = 'none';
         });
-        // Close modal by clicking overlay
+
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = 'none';
@@ -1651,7 +1842,6 @@
         });
 
         // --- Pass Counter ---
-        // Simulate a random pass number
         const passNumber = Math.floor(Math.random() * (250 - 100 + 1)) + 100;
         document.getElementById('pass-counter').innerText = `#${passNumber.toString().padStart(3, '0')}`;
         
@@ -1668,7 +1858,6 @@
                 piece.classList.add(colors[Math.floor(Math.random() * colors.length)]);
                 piece.classList.add(shapes[Math.floor(Math.random() * shapes.length)]);
                 
-                // Start from center of modal
                 const startX = rect.left + (rect.width / 2);
                 const startY = rect.top + (rect.height / 2);
 
@@ -1677,10 +1866,9 @@
                 
                 document.body.appendChild(piece);
 
-                // Animate piece
                 animatePiece(piece, {
-                    x: (Math.random() - 0.5) * 600, // horizontal spread
-                    y: (Math.random() - 0.5) * 600 - 300, // upward/downward spread
+                    x: (Math.random() - 0.5) * 600,
+                    y: (Math.random() - 0.5) * 600 - 300,
                     opacity: 0,
                     rotate: Math.random() * 720,
                     duration: Math.random() * 2 + 1,
@@ -1689,7 +1877,6 @@
             }
         }
         
-        // Simple animation function (polyfill for requestAnimationFrame)
         function animatePiece(piece, props) {
             const start = performance.now();
             const duration = props.duration * 1000;
@@ -1702,7 +1889,6 @@
                 const elapsed = now - start;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Ease-out quad
                 const ease = 1 - (1 - progress) * (1 - progress);
                 
                 const currentX = startX + props.x * ease;
@@ -1731,13 +1917,118 @@
                 
                 if (targetElement) {
                     const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                    // Offset by navbar height (approx 80px to be safe)
                     window.scrollTo({
                         top: offsetTop - 80,
                         behavior: 'smooth'
                     });
                 }
             });
+        });
+
+        // --- Mobile Touch Interactions ---
+        if ('vibrate' in navigator) {
+            document.querySelectorAll('.btn, .checkout-btn, .detail-card').forEach(el => {
+                el.addEventListener('touchstart', () => {
+                    navigator.vibrate(10);
+                });
+            });
+        }
+
+        // --- Pull-to-Refresh Effect ---
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
+        
+        document.addEventListener('touchmove', (e) => {
+            touchEndY = e.touches[0].clientY;
+            const pullDistance = touchEndY - touchStartY;
+            
+            if (window.scrollY < 10 && pullDistance > 0) {
+                const progressBar = document.getElementById('progress-bar');
+                const opacity = Math.min(pullDistance / 100, 1);
+                progressBar.style.background = `linear-gradient(90deg, 
+                    rgba(254, 95, 85, ${opacity}), 
+                    rgba(255, 200, 87, ${opacity}))`;
+            }
+        }, {passive: true});
+        
+        document.addEventListener('touchend', () => {
+            setTimeout(() => {
+                document.getElementById('progress-bar').style.background = 
+                    'linear-gradient(90deg, var(--marker-pink), var(--marker-orange))';
+            }, 300);
+        }, {passive: true});
+
+        // --- Shake Animation on Mobile ---
+        let lastX = 0, lastY = 0, lastZ = 0;
+        let shakeCount = 0;
+        
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', (e) => {
+                const acceleration = e.accelerationIncludingGravity;
+                const x = acceleration.x;
+                const y = acceleration.y;
+                const z = acceleration.z;
+                
+                const deltaX = Math.abs(x - lastX);
+                const deltaY = Math.abs(y - lastY);
+                const deltaZ = Math.abs(z - lastZ);
+                
+                if (deltaX + deltaY + deltaZ > 30) {
+                    shakeCount++;
+                    if (shakeCount > 3) {
+                        document.querySelectorAll('.section').forEach(section => {
+                            section.style.animation = 'wiggle 0.5s ease-in-out';
+                            setTimeout(() => {
+                                section.style.animation = '';
+                            }, 500);
+                        });
+                        shakeCount = 0;
+                    }
+                }
+                
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+            });
+        }
+
+        // --- Swipe Gestures for FAQ ---
+        const faqDetails = document.querySelectorAll('#faq details');
+        faqDetails.forEach(detail => {
+            let startX = 0;
+            let startY = 0;
+            
+            detail.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, {passive: true});
+            
+            detail.addEventListener('touchend', (e) => {
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const diffX = startX - endX;
+                const diffY = startY - endY;
+                
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        detail.removeAttribute('open');
+                    } else {
+                        detail.setAttribute('open', '');
+                    }
+                }
+            }, {passive: true});
+        });
+
+        // --- Mobile Orientation Change Handler ---
+        window.addEventListener('orientationchange', () => {
+            document.body.style.animation = 'fadeIn 0.5s ease-out';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
         });
 
     </script>
